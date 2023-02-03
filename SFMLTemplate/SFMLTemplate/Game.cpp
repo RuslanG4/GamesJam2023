@@ -10,6 +10,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
+	sapling = new Base;
 	setupFontAndText();
 
 }
@@ -122,7 +123,7 @@ void Game::render()
 		m_window.draw(m_grid[i]);
 		m_window.draw(m_eGrid[i]);
 	}
-	
+	sapling->render(m_window);
 	m_window.display();
 }
 
@@ -142,6 +143,9 @@ void Game::setupFontAndText()
 		m_eGrid[i].setOutlineColor(sf::Color::Black);
 		m_eGrid[i].setOutlineThickness(3);
 	}
+
+	sapling->init();
+	sapling->setPosition(sf::Vector2f(positions[0].x + 100, positions[0].y + 100));
 
 }
 

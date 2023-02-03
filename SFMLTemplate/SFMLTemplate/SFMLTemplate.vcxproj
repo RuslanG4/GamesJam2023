@@ -130,11 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sapling.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Sapling.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

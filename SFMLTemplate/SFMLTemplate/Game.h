@@ -13,6 +13,8 @@
 /// </summary>
 #include <SFML/Graphics.hpp>
 #include<iostream>
+#include"Sapling.h"
+#include"Base.h"
 
 class Game
 {
@@ -44,6 +46,8 @@ private:
 	sf::RectangleShape m_grid[6];
 
 	sf::RectangleShape m_eGrid[6];
+
+	Sapling *sapling;
 
 	sf::Vector2f positions[6]
 	{
