@@ -43,6 +43,7 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 	void setupFontAndText();
+	void movingSprite();
 
 	bool m_exitGame; // control exiting game
 
@@ -53,11 +54,14 @@ private:
 	Grid myGrid[6];
 	Grid enemyGrid[6];
 
+	sf::Vector2f mouseLocation = {};
+
 	int currentSaplings = 3;
 
 	Sapling *sapling;
 	int selectedSapling = 0;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	Enemy* enemy;
@@ -67,6 +71,14 @@ private:
 =======
 	bool fBox1 = false;
 >>>>>>> f11358a8193ae0279a321f5f0f771e217964217c
+=======
+
+	Enemy* enemy;
+
+	bool pressedBox = false;
+	bool heldMouse = false;
+
+>>>>>>> MouseInput
 
 	sf::Vector2f positions[6]
 	{
