@@ -11,12 +11,13 @@ public:
 	void setPosition(sf::Vector2f loc) { m_shape.setPosition(loc); };
 	sf::Vector2f getPos() { return m_shape.getPosition(); };
 	void setOccupied() { occupied = true; };
+	void setUnOccupied() { occupied = false; };
 	bool checkOccupied() { return occupied; };
 	void setEnemyNumber(int t_number) { enemyNumber = t_number; };
 	int enemyNumberCheck() { return enemyNumber; };
 private:
 	sf::RectangleShape m_shape;
 	bool occupied = false;
-	int enemyNumber = 0;
+	int enemyNumber = 8;
 };
 

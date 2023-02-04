@@ -17,6 +17,9 @@ public:
 	virtual sf::Vector2f getPos() = 0;
 	virtual void takeDamage(int t_damage)=0;
 	virtual void attack(Enemy& t_enemy) = 0;
+	virtual bool getAttack() = 0;
+	virtual void setGridNumber(int t_number) = 0;
+	virtual int checkGridNumber() = 0;
 private:
 
 };

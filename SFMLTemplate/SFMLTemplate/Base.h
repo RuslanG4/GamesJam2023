@@ -13,14 +13,18 @@ public:
 	sf::Vector2f getPos() { return m_shape.getPosition(); };
 	void takeDamage(int t_damage);
 	void attack(Enemy& t_enemy);
+	bool getAttack() { return hasAttacked; };
 
+	void setGridNumber(int t_number) { gridNum = t_number; };
+	int checkGridNumber() { return gridNum; };
 
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
 	bool hasAttacked = false;
 	int health = 100;
-	int damage = 10;
+	int damage = 60;
+	int gridNum;
 
 };
 

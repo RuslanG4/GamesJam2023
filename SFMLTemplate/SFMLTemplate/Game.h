@@ -61,8 +61,8 @@ private:
 	void attack();
 
 	int currentSaplings = 3;
+	Sapling *sapling[MAX_SPROUTS];
 
-	Sapling *sapling;
 	int selectedSapling = 0;
 	int enemySelected = 0;
 
@@ -93,7 +93,7 @@ private:
 
 	GameState m_gamestate = GameState::PLAYERTURN;
 
-	void setType();
+	void checkGrids();
 
 	int randomPos = 0;
 	int randomEnemy = 0;
@@ -101,6 +101,7 @@ private:
 	Enemy* enemy[MAX_ENEMIES];
 
 	void createEnemies();
+	void createRoots();
 
 };
 

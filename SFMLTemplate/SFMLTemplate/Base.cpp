@@ -16,12 +16,12 @@ void Base::init()
 	if (m_type == Type::FIGHTER)
 	{
 		health = 110;
-		damage = 15;
+		damage = 60;
 	}
 	if (m_type == Type::ARCHER)
 	{
 		health = 90;
-		damage = 20;
+		damage = 60;
 	}
 }
 
@@ -33,4 +33,5 @@ void Base::takeDamage(int t_damage)
 void Base::attack(Enemy& t_enemy)
 {
 	t_enemy.takeDamage(damage);
+	hasAttacked = true;
 }

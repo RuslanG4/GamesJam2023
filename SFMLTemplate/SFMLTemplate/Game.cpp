@@ -10,7 +10,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
-	sapling = new Base;
+	createRoots();
 	createEnemies();
 	setupFontAndText();
 
@@ -112,8 +112,15 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
 
-			selectedSapling = 0;
-			
+			if (!myGrid[0].checkOccupied())
+			{
+				selectedSapling = myGrid[0].enemyNumberCheck();
+				myGrid[0].setEnemyNumber(selectedSapling);
+			}
+			else
+			{
+				selectedSapling = myGrid[0].enemyNumberCheck();
+			}
 
 			pressedBox = true;
 			heldMouse = true;
@@ -123,9 +130,9 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
 
-			selectedSapling = 2;
+			selectedSapling = myGrid[2].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 			
-
 			pressedBox = true;
 			heldMouse = true;
 
@@ -134,9 +141,9 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
 
-			selectedSapling = 4;
+			selectedSapling = myGrid[4].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 		
-
 			pressedBox = true;
 			heldMouse = true;
 
@@ -149,7 +156,8 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
 
-			selectedSapling = 1;
+			selectedSapling = myGrid[1].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -160,7 +168,8 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
 
-			selectedSapling = 3;
+			selectedSapling = myGrid[3].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -171,7 +180,8 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
 
-			selectedSapling = 5;
+			selectedSapling = myGrid[5].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -187,19 +197,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > E_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed Enemy fighter 1 box" << std::endl;
-			enemySelected = myGrid[0].enemyNumberCheck();
+			enemySelected = enemyGrid[0].enemyNumberCheck();
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed Enemy fighter 2 box" << std::endl;
-			enemySelected = myGrid[2].enemyNumberCheck();
+			enemySelected = enemyGrid[2].enemyNumberCheck();
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed Enemy fighter 3 box" << std::endl;
-			enemySelected = myGrid[4].enemyNumberCheck();
+			enemySelected = enemyGrid[4].enemyNumberCheck();
 			pressedBox = true;
 		}
 
@@ -210,19 +220,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > E_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed Enemy archer 1 box" << std::endl;
-			enemySelected = myGrid[1].enemyNumberCheck();
+			enemySelected = enemyGrid[1].enemyNumberCheck();
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed Enemy archer 2 box" << std::endl;
-			enemySelected = myGrid[3].enemyNumberCheck();
+			enemySelected = enemyGrid[3].enemyNumberCheck();
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed Enemy archer 3 box" << std::endl;
-			enemySelected = myGrid[5].enemyNumberCheck();
+			enemySelected = enemyGrid[5].enemyNumberCheck();
 			pressedBox = true;
 		}
 
@@ -234,6 +244,8 @@ void Game::processMouse(sf::Event t_event)
 void Game::processMouseRelease(sf::Event t_event)
 {
 	heldMouse = false;
+	std::cout << "enemy selected : " + std::to_string(enemySelected);
+	std::cout << "player selected : " + std::to_string(selectedSapling);
 }
 
 /// <summary>
@@ -246,8 +258,9 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	setType();
+
 	attack();
+	checkGrids();
 
 
 	if (heldMouse)
@@ -274,9 +287,11 @@ void Game::render()
 		myGrid[i].render(m_window);
 		enemyGrid[i].render(m_window);
 	}
-
+	for (int i = 0; i < currentSaplings; i++)
+	{
+		sapling[i]->render(m_window);
+	}
 	m_window.draw(attackButton);
-	sapling->render(m_window);
 	m_window.display();
 }
 
@@ -290,20 +305,18 @@ void Game::setupFontAndText()
 	}
 
 	attackButton.setSize(sf::Vector2f(200, 50));
-	attackButton.setPosition(1720, 1030);
-
-	sapling->init();
-	sapling->setPosition(sf::Vector2f(positions[0].x + 100, positions[0].y + 100));
+	attackButton.setPosition(820, 330);
 
 }
 
 void Game::movingSprite()
 {
-	sapling->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
+	sapling[selectedSapling]->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
 }
 
 void Game::attack()
 {
+	pressedAttack = false;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
 		pressedAttack = true;
@@ -311,36 +324,20 @@ void Game::attack()
 
 	if (pressedAttack)
 	{
-		sapling->attack(*enemy[enemySelected]);
-		pressedAttack = false;
+		if (!sapling[selectedSapling]->getAttack())
+		{
+			sapling[selectedSapling]->attack(*enemy[enemySelected]);
+			pressedAttack = false;
+		}
 	}
 }
 
-
-
-void Game::setType()
+/// <summary>
+/// creates warriors and rangers
+/// </summary>
+void Game::createRoots()
 {
-	for (int i = 0; i < 6; i+=2) // backline
-	{
-		if (sapling->getPos() == sf::Vector2f(positions[i].x + 100, positions[0].y + 100))
-		{
-			sapling->setType(Type::ARCHER);
-		}
-	}
-	for (int i = 1; i < 6; i += 2) //front line
-	{
-		if (sapling->getPos() == sf::Vector2f(positions[i].x + 100, positions[0].y + 100))
-		{
-			sapling->setType(Type::FIGHTER);
-		}
-	}
-	
-}
-
-void Game::createEnemies()
-{
-
-	for (int i = 0; i < currentEnemies; i++)
+	for (int i = 0; i < currentSaplings; i++)
 	{
 		randomPos = rand() % 6;
 		if (randomPos % 2 == 0)
@@ -349,13 +346,14 @@ void Game::createEnemies()
 			{
 				randomPos = rand() % 6;
 			}
-				enemy[i] = new MeleeEnemy;
-				enemy[i]->init();
-				enemy[i]->setType(Type::FIGHTER);
-				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
-				myGrid[randomPos].setOccupied();
-				myGrid[randomPos].setEnemyNumber(i);
-			
+			sapling[i] = new Base;
+			sapling[i]->setType(Type::ARCHER);
+			sapling[i]->init();
+			sapling[i]->setPosition(sf::Vector2f(positions[randomPos].x + 100, positions[randomPos].y + 100));
+			myGrid[randomPos].setOccupied();
+			sapling[i]->setGridNumber(randomPos);
+			myGrid[randomPos].setEnemyNumber(i);
+
 		}
 		else
 		{
@@ -364,12 +362,65 @@ void Game::createEnemies()
 			{
 				randomPos = rand() % 6;
 			}
+			sapling[i] = new Base;
+			sapling[i]->setType(Type::ARCHER);
+			sapling[i]->init();
+			sapling[i]->setPosition(sf::Vector2f(positions[randomPos].x + 100, positions[randomPos].y + 100));
+			myGrid[randomPos].setOccupied();
+			sapling[i]->setGridNumber(randomPos);
+			myGrid[randomPos].setEnemyNumber(i);
+
+		}
+	}
+}
+
+void Game::checkGrids()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (sapling[selectedSapling]->getPos().x > positions[i].x && sapling[selectedSapling]->getPos().x < positions[i].x + 200 &&
+			sapling[selectedSapling]->getPos().y > positions[i].y && sapling[selectedSapling]->getPos().y < positions[i].y + 200 &&
+			!myGrid[i].checkOccupied())
+		{
+			//myGrid[i].setEnemyNumber(selectedSapling);
+			myGrid[i].setOccupied();
+		}
+	}
+	
+}
+
+void Game::createEnemies()
+{
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		randomPos = rand() % 6;
+		if (randomPos % 2 == 0)
+		{
+			while (enemyGrid[randomPos].checkOccupied())
+			{
+				randomPos = rand() % 6;
+			}
+				enemy[i] = new MeleeEnemy;
+				enemy[i]->init();
+				enemy[i]->setType(Type::FIGHTER);
+				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
+				enemyGrid[randomPos].setOccupied();
+				enemyGrid[randomPos].setEnemyNumber(i);
+			
+		}
+		else
+		{
+
+			while (enemyGrid[randomPos].checkOccupied())
+			{
+				randomPos = rand() % 6;
+			}
 				enemy[i] = new RangedEnemy;
 				enemy[i]->init();
 				enemy[i]->setType(Type::ARCHER);
 				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
-				myGrid[randomPos].setOccupied();
-				myGrid[randomPos].setEnemyNumber(i);
+				enemyGrid[randomPos].setOccupied();
+				enemyGrid[randomPos].setEnemyNumber(i);
 		
 		}
 	}
