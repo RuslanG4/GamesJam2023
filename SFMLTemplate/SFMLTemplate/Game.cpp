@@ -111,35 +111,35 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 0;
-			fBox1 = true;
-=======
+			
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 2;
-			fBox1 = true;
-=======
+			
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 4;
-			fBox1 = true;
-=======
+		
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 	}
 	//Friendly Fighters Coloum 2 & process rows
@@ -148,35 +148,35 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 1;
-			fBox1 = true;
-=======
+		
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 3;
-			fBox1 = true;
-=======
+		
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
-<<<<<<< HEAD
+
 			selectedSapling = 5;
-			fBox1 = true;
-=======
+		
+
 			pressedBox = true;
 			heldMouse = true;
->>>>>>> MouseInput
+
 		}
 	}
 
@@ -241,19 +241,19 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	setType();
-<<<<<<< HEAD
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
 		//sapling->attack(*enemy[0]);
 	}
 
-=======
+
 	if (heldMouse)
 	{
 		movingSprite();
 	}
->>>>>>> MouseInput
+
 }
 /// <summary>
 /// draw the frame and then switch buffers
@@ -321,7 +321,7 @@ void Game::setType()
 
 void Game::createEnemies()
 {
-<<<<<<< HEAD
+
 	for (int i = 0; i < currentEnemies; i++)
 	{
 		randomPos = rand() % 6;
@@ -353,10 +353,6 @@ void Game::createEnemies()
 		
 		}
 	}
-
-=======
-	
->>>>>>> MouseInput
 }
 
 

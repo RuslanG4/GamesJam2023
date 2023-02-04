@@ -61,24 +61,10 @@ private:
 	Sapling *sapling;
 	int selectedSapling = 0;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	Enemy* enemy;
-
-	bool fBox1 = false;
-
-=======
-	bool fBox1 = false;
->>>>>>> f11358a8193ae0279a321f5f0f771e217964217c
-=======
-
-	Enemy* enemy;
 
 	bool pressedBox = false;
 	bool heldMouse = false;
 
->>>>>>> MouseInput
 
 	sf::Vector2f positions[6]
 	{
