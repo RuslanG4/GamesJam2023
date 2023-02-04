@@ -41,6 +41,7 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 	void setupFontAndText();
+	void movingSprite();
 
 	bool m_exitGame; // control exiting game
 
@@ -53,6 +54,8 @@ private:
 
 	sf::RectangleShape m_eGrid[6];
 
+	sf::Vector2f mouseLocation = {};
+
 	int currentSaplings = 3;
 
 	Sapling *sapling;
@@ -61,6 +64,7 @@ private:
 	Enemy* enemy;
 
 	bool fBox1 = false;
+	bool heldMouse = false;
 
 
 	sf::Vector2f positions[6]
