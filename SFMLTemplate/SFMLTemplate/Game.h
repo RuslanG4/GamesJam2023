@@ -57,7 +57,11 @@ private:
 
 	Sapling *sapling;
 
+<<<<<<< HEAD
 	Enemy* enemy;
+=======
+	bool fBox1 = false;
+>>>>>>> bef3d3f69df5dfdcbaf2ea6feae019ccda63d31e
 
 	sf::Vector2f positions[6]
 	{
