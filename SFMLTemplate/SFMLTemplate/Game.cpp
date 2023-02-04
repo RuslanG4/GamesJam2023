@@ -112,15 +112,8 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
 
-			if (!myGrid[0].checkOccupied())
-			{
-				selectedSapling = myGrid[0].enemyNumberCheck();
-				myGrid[0].setEnemyNumber(selectedSapling);
-			}
-			else
-			{
-				selectedSapling = myGrid[0].enemyNumberCheck();
-			}
+			selectedSapling = myGrid[0].enemyNumberCheck();
+			myGrid[0].setEnemyNumber(selectedSapling);
 
 			pressedBox = true;
 			heldMouse = true;
@@ -131,7 +124,7 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
 
 			selectedSapling = myGrid[2].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			myGrid[2].setEnemyNumber(selectedSapling);
 			
 			pressedBox = true;
 			heldMouse = true;
@@ -142,7 +135,7 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
 
 			selectedSapling = myGrid[4].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			myGrid[4].setEnemyNumber(selectedSapling);
 		
 			pressedBox = true;
 			heldMouse = true;
@@ -157,7 +150,7 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
 
 			selectedSapling = myGrid[1].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			myGrid[1].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -169,7 +162,7 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
 
 			selectedSapling = myGrid[3].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			myGrid[3].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -181,7 +174,7 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
 
 			selectedSapling = myGrid[5].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			myGrid[5].setEnemyNumber(selectedSapling);
 		
 
 			pressedBox = true;
@@ -379,13 +372,24 @@ void Game::checkGrids()
 	for (int i = 0; i < 6; i++)
 	{
 		if (sapling[selectedSapling]->getPos().x > positions[i].x && sapling[selectedSapling]->getPos().x < positions[i].x + 200 &&
-			sapling[selectedSapling]->getPos().y > positions[i].y && sapling[selectedSapling]->getPos().y < positions[i].y + 200 &&
-			!myGrid[i].checkOccupied())
+			sapling[selectedSapling]->getPos().y > positions[i].y && sapling[selectedSapling]->getPos().y < positions[i].y + 200)
 		{
-			//myGrid[i].setEnemyNumber(selectedSapling);
-			myGrid[i].setOccupied();
+			if (!myGrid[i].checkOccupied())
+			{
+				myGrid[sapling[selectedSapling]->checkGridNumber()].setUnOccupied();
+				myGrid[i].setOccupied();
+				myGrid[i].setEnemyNumber(selectedSapling);
+				sapling[selectedSapling]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
+				sapling[selectedSapling]->setGridNumber(i);
+			}
+			else
+			{
+				sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
+			}
 		}
 	}
+
+	//std::cout << selectedSapling << "\n";
 	
 }
 
