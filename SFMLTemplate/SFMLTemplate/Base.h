@@ -9,7 +9,7 @@ public:
 	void init();
 	void setPosition(sf::Vector2f loc) { m_shape.setPosition(loc); };
 	Type getType() { return m_type; }
-	void setType(Type t_type) { m_type = t_type; };
+	void setType(Type t_type) ;
 	sf::Vector2f getPos() { return m_shape.getPosition(); };
 	void takeDamage(int t_damage);
 	void attack(Enemy& t_enemy);
@@ -23,7 +23,8 @@ private:
 	Type m_type = Type::NONE;
 	bool hasAttacked = false;
 	int health = 100;
-	int damage = 60;
+	int damage = 0;
+	int hitChance;
 	int gridNum;
 
 };

@@ -25,6 +25,24 @@ void Base::init()
 	}
 }
 
+void Base::setType(Type t_type)
+{
+	m_type = t_type; 
+	switch (m_type)
+	{
+	case Type::FIGHTER:
+		health = 120;
+		damage = 30;
+		hitChance = 75;
+		break;
+	case Type::ARCHER:
+		health = 50;
+		damage = 25;
+		hitChance = 80;
+		break;
+	}
+}
+
 void Base::takeDamage(int t_damage)
 {
 	health -= damage;

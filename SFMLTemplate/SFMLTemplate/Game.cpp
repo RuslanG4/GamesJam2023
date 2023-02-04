@@ -276,6 +276,7 @@ void Game::render()
 		enemy[i]->render(m_window);
 	}
 
+	//m_window.draw(m_text);
 	
 	for (int i = 0; i < 6; i++)
 	{
@@ -292,6 +293,14 @@ void Game::render()
 
 void Game::setupFontAndText()
 {
+	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
+	{
+		std::cout << "error loading font";
+	}
+	m_text.setFont(m_arialFont);
+	m_text.setCharacterSize(32U);
+	m_text.setString("YAYAYAYYA");
+
 	for (int i = 0; i < 6 ; i++)
 	{
 		myGrid[i].setPosition(positions[i]);

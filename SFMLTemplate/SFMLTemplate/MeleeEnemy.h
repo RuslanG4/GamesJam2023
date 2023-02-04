@@ -1,6 +1,7 @@
 #pragma once
 #include"Enemy.h"
 
+//hardwood
 class MeleeEnemy : public Enemy
 {
 public:
@@ -18,8 +19,9 @@ public:
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
-	int health = 100;
-	int damage = 100;
+	int health = 110;
+	int damage = 25;
+	int hitChance = 75;
 
 };
 

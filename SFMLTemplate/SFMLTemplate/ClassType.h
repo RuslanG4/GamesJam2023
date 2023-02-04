@@ -3,7 +3,7 @@
 enum class Type
 {
 	NONE,
-	FIGHTER,
-	ARCHER
+	FIGHTER, //hardwood
+	ARCHER   //softwood
 };
 

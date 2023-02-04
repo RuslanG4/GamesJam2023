@@ -20,6 +20,7 @@
 #include"RangedEnemy.h"
 #include"MeleeEnemy.h"
 #include"Grid.h"
+#include"TurnState.h"
 
 const int MAX_SPROUTS = 6;
 const int MAX_ENEMIES = 6;
@@ -50,7 +51,8 @@ private:
 
 	sf::RenderWindow m_window; // main SFML window
 
-	sf::Font m_font; // font used by message
+	sf::Font m_arialFont;
+	sf::Text m_text;
 
 	Grid myGrid[6];
 	Grid enemyGrid[6];
@@ -66,6 +68,8 @@ private:
 
 	int selectedSapling = 0;
 	int enemySelected = 0;
+
+	TurnState m_turnstate = TurnState::PLAYERTURN;
 
 
 	bool pressedBox = false;

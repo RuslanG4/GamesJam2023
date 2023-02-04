@@ -18,7 +18,8 @@ public:
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
-	int health = 100;
-	int damage = 100;
+	int health = 45;
+	int damage = 25;
+	int hitChance = 85;
 };
 
