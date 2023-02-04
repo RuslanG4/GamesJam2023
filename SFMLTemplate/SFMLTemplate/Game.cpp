@@ -310,6 +310,8 @@ void Game::render()
 	}
 	m_window.draw(m_attackSprite);
 	m_window.draw(m_healSprite);
+	m_window.draw(m_buffSprite);
+	m_window.draw(m_debuffSprite);
 	m_window.display();
 }
 
@@ -350,6 +352,23 @@ void Game::setupFontAndText()
 	m_healSprite.setTexture(m_healTexture);
 	m_healSprite.setPosition(800, 200);
 	m_healSprite.setScale(5, 5);
+
+	if (!m_buffTexture.loadFromFile("ASSETS\\IMAGES\\buff.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_buffSprite.setTexture(m_buffTexture);
+	m_buffSprite.setPosition(800, 300);
+	m_buffSprite.setScale(5, 5);
+
+
+	if (!m_debuffTexture.loadFromFile("ASSETS\\IMAGES\\debuff.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_debuffSprite.setTexture(m_debuffTexture);
+	m_debuffSprite.setPosition(900, 300);
+	m_debuffSprite.setScale(5, 5);
 }
 
 void Game::movingSprite()
