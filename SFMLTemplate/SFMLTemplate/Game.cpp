@@ -113,8 +113,11 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
 
-			selectedSapling = myGrid[0].enemyNumberCheck();
-			myGrid[0].setEnemyNumber(selectedSapling);
+			if (myGrid[0].checkOccupied())
+			{
+				selectedSapling = myGrid[0].enemyNumberCheck();
+				myGrid[0].setEnemyNumber(selectedSapling);
+			}
 
 			pressedBox = true;
 			heldMouse = true;
@@ -123,10 +126,11 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
-
-			selectedSapling = myGrid[2].enemyNumberCheck();
-			myGrid[2].setEnemyNumber(selectedSapling);
-			
+			if (myGrid[2].checkOccupied())
+			{
+				selectedSapling = myGrid[2].enemyNumberCheck();
+				myGrid[2].setEnemyNumber(selectedSapling);
+			}
 			pressedBox = true;
 			heldMouse = true;
 
@@ -134,10 +138,11 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
-
-			selectedSapling = myGrid[4].enemyNumberCheck();
-			myGrid[4].setEnemyNumber(selectedSapling);
-		
+			if (myGrid[4].checkOccupied())
+			{
+				selectedSapling = myGrid[4].enemyNumberCheck();
+				myGrid[4].setEnemyNumber(selectedSapling);
+			}
 			pressedBox = true;
 			heldMouse = true;
 
@@ -149,10 +154,11 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
-
-			selectedSapling = myGrid[1].enemyNumberCheck();
-			myGrid[1].setEnemyNumber(selectedSapling);
-		
+			if (myGrid[1].checkOccupied())
+			{
+				selectedSapling = myGrid[1].enemyNumberCheck();
+				myGrid[1].setEnemyNumber(selectedSapling);
+			}
 
 			pressedBox = true;
 			heldMouse = true;
@@ -161,11 +167,12 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
+			if (myGrid[3].checkOccupied())
+			{
+				selectedSapling = myGrid[3].enemyNumberCheck();
+				myGrid[3].setEnemyNumber(selectedSapling);
 
-			selectedSapling = myGrid[3].enemyNumberCheck();
-			myGrid[3].setEnemyNumber(selectedSapling);
-		
-
+			}
 			pressedBox = true;
 			heldMouse = true;
 
@@ -173,10 +180,11 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
-
-			selectedSapling = myGrid[5].enemyNumberCheck();
-			myGrid[5].setEnemyNumber(selectedSapling);
-		
+			if (myGrid[5].checkOccupied())
+			{
+				selectedSapling = myGrid[5].enemyNumberCheck();
+				myGrid[5].setEnemyNumber(selectedSapling);
+			}
 
 			pressedBox = true;
 			heldMouse = true;
