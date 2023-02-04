@@ -57,6 +57,9 @@ private:
 	Grid myGrid[6];
 	Grid enemyGrid[6];
 
+	sf::Sprite m_attackSprite;
+	sf::Texture m_attackTexture;
+
 	sf::Vector2f mouseLocation = {};
 
 	sf::RectangleShape attackButton;

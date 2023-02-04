@@ -104,6 +104,7 @@ void Game::processMouse(sf::Event t_event)
 	const int E_ROW_TOP = 100;
 	const int E_ROW_BOTTOM = 300;
 
+
 	//Friendly
 	//Friendly archers Coloum 1 & process rows 
 	if (t_event.mouseButton.x > F_COL_LEFT && t_event.mouseButton.x < F_COL_RIGHT)
@@ -231,15 +232,29 @@ void Game::processMouse(sf::Event t_event)
 		}
 
 	}
-	
 
 }
 
 void Game::processMouseRelease(sf::Event t_event)
 {
+	const int ATTACK_TOP = 200;
+	const int ATTACK_BOTTOM = 280;
+	const int ATTACK_LEFT = 900;
+	const int ATTACK_RIGHT = 1000;
+
+
 	heldMouse = false;
 	std::cout << "enemy selected : " + std::to_string(enemySelected);
 	std::cout << "player selected : " + std::to_string(selectedSapling);
+
+	if (t_event.mouseButton.x > ATTACK_LEFT && t_event.mouseButton.x < ATTACK_RIGHT)
+	{
+		if (t_event.mouseButton.y > ATTACK_TOP && t_event.mouseButton.y < ATTACK_BOTTOM)
+		{
+			std::cout << "Attack" << std::endl;
+			attack();
+		}
+	}
 }
 
 /// <summary>
@@ -252,8 +267,6 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-
-	attack();
 	checkGrids();
 	checkBounds();
 
@@ -295,7 +308,7 @@ void Game::render()
 	{
 		sapling[i]->render(m_window);
 	}
-	m_window.draw(attackButton);
+	m_window.draw(m_attackSprite);
 	m_window.display();
 }
 
@@ -319,6 +332,15 @@ void Game::setupFontAndText()
 
 	attackButton.setSize(sf::Vector2f(200, 50));
 	attackButton.setPosition(820, 330);
+
+	if (!m_attackTexture.loadFromFile("ASSETS\\IMAGES\\attack1.png"))
+	{
+		std::cout << "Couldnt load attack" << std::endl;
+	}
+
+	m_attackSprite.setTexture(m_attackTexture);
+	m_attackSprite.setPosition(900, 200);
+	m_attackSprite.setScale(5, 5);
 
 }
 
@@ -344,20 +366,12 @@ void Game::checkBounds()
 
 void Game::attack()
 {
-	pressedAttack = false;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+
+	if (!sapling[selectedSapling]->getAttack())
 	{
-		pressedAttack = true;
+		sapling[selectedSapling]->attack(*enemy[enemySelected]);
 	}
 
-	if (pressedAttack)
-	{
-		if (!sapling[selectedSapling]->getAttack())
-		{
-			sapling[selectedSapling]->attack(*enemy[enemySelected]);
-			pressedAttack = false;
-		}
-	}
 }
 
 

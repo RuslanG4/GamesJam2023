@@ -31,7 +31,7 @@ void Base::setType(Type t_type)
 	switch (m_type)
 	{
 	case Type::FIGHTER:
-		health = 120;
+		health = 20;
 		damage = 30;
 		hitChance = 75;
 		break;
