@@ -1,6 +1,6 @@
 #include "MeleeEnemy.h"
 
-void MeleeEnemy::update(Sapling& t_sap)
+void MeleeEnemy::update()
 {
 }
 
@@ -24,7 +24,6 @@ void MeleeEnemy::takeDamage(int t_damage)
 	}
 }
 
-void MeleeEnemy::attack(Sapling& t_sap)
+void MeleeEnemy::attack()
 {
-	t_sap.takeDamage(damage);
 }

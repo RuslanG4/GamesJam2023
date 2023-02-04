@@ -4,7 +4,7 @@
 class RangedEnemy : public Enemy
 {
 public:
-	void update(Sapling& t_sap);
+	void update();
 	void render(sf::RenderWindow& win);
 	void init();
 	void setPosition(sf::Vector2f loc) { m_shape.setPosition(loc); };
@@ -12,7 +12,9 @@ public:
 	void setType(Type t_type) { m_type = t_type; };
 	sf::Vector2f getPos() { return m_shape.getPosition(); };
 	void takeDamage(int t_damage);
+
 	int getHealth() { return health; };
+	void attack();
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;

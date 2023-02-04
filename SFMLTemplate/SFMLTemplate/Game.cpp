@@ -164,7 +164,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-		sapling->attack(*enemy[0]);
+		//sapling->attack(*enemy[0]);
 	}
 
 }

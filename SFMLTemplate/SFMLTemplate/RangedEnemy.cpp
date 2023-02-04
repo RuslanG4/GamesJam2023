@@ -1,6 +1,6 @@
 #include "RangedEnemy.h"
 
-void RangedEnemy::update(Sapling& t_sap)
+void RangedEnemy::update()
 {
 }
 
@@ -22,4 +22,8 @@ void RangedEnemy::takeDamage(int t_damage)
 	{
 		m_shape.setFillColor(sf::Color::Magenta);
 	}
+}
+
+void RangedEnemy::attack()
+{
 }
