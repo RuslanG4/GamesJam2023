@@ -22,6 +22,7 @@ public:
 	virtual int checkGridNumber() = 0;
 	virtual int getHealth() = 0;
 	virtual void resetAttacks() = 0;
+	virtual int getDamgage() = 0;
 private:
 
 };

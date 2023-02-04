@@ -133,6 +133,7 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="RangedEnemy.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Sapling.h" />

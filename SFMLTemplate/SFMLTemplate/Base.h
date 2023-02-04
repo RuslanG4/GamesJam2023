@@ -19,6 +19,7 @@ public:
 	int checkGridNumber() { return gridNum; };
 	int getHealth() { return health; };
 	void resetAttacks() { hasAttacked = false; }
+	int getDamgage() { return damage; };
 
 private:
 	sf::Sprite m_sprite;

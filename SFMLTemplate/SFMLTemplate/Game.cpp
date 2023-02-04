@@ -117,6 +117,8 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[0].enemyNumberCheck();
 				myGrid[0].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[0]);
+
 			}
 
 			pressedBox = true;
@@ -130,6 +132,7 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[2].enemyNumberCheck();
 				myGrid[2].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[2]);
 			}
 			pressedBox = true;
 			heldMouse = true;
@@ -142,6 +145,7 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[4].enemyNumberCheck();
 				myGrid[4].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[4]);
 			}
 			pressedBox = true;
 			heldMouse = true;
@@ -158,6 +162,7 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[1].enemyNumberCheck();
 				myGrid[1].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[1]);
 			}
 
 			pressedBox = true;
@@ -171,6 +176,7 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[3].enemyNumberCheck();
 				myGrid[3].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[3]);
 
 			}
 			pressedBox = true;
@@ -184,6 +190,7 @@ void Game::processMouse(sf::Event t_event)
 			{
 				selectedSapling = myGrid[5].enemyNumberCheck();
 				myGrid[5].setEnemyNumber(selectedSapling);
+				m_selectionSapling.setPosition(positions[5]);
 			}
 
 			pressedBox = true;
@@ -201,18 +208,21 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed Enemy fighter 1 box" << std::endl;
 			enemySelected = enemyGrid[0].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[0]);
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed Enemy fighter 2 box" << std::endl;
 			enemySelected = enemyGrid[2].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[2]);
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed Enemy fighter 3 box" << std::endl;
 			enemySelected = enemyGrid[4].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[4]);
 			pressedBox = true;
 		}
 
@@ -224,18 +234,21 @@ void Game::processMouse(sf::Event t_event)
 		{
 			std::cout << "Pressed Enemy archer 1 box" << std::endl;
 			enemySelected = enemyGrid[1].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[1]);
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed Enemy archer 2 box" << std::endl;
 			enemySelected = enemyGrid[3].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[3]);
 			pressedBox = true;
 		}
 		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed Enemy archer 3 box" << std::endl;
 			enemySelected = enemyGrid[5].enemyNumberCheck();
+			m_selectionEnemy.setPosition(ePositions[5]);
 			pressedBox = true;
 		}
 
@@ -267,6 +280,7 @@ void Game::processMouseRelease(sf::Event t_event)
 	{
 		if (t_event.mouseButton.y > 400 && t_event.mouseButton.y < 480)
 		{
+			myHud.endTurn();
 			m_gamestate = GameState::ENEMYTURN;
 			attackingEnemy = currentEnemies - 1;//currentEnemies;
 		}
@@ -285,6 +299,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	if (m_gamestate == GameState::PLAYERTURN)
 	{
+		mousePos();
 		checkGrids();
 		checkBounds();
 		if (heldMouse)
@@ -329,7 +344,6 @@ void Game::update(sf::Time t_deltaTime)
 		}
 	}
 
-
 }
 /// <summary>
 /// draw the frame and then switch buffers
@@ -359,6 +373,9 @@ void Game::render()
 	m_window.draw(m_buffSprite);
 	m_window.draw(m_debuffSprite);
 	m_window.draw(m_turnOverSprite);
+	myHud.render(m_window);
+	m_window.draw(m_selectionSapling);
+	m_window.draw(m_selectionEnemy);
 	m_window.display();
 }
 
@@ -424,6 +441,20 @@ void Game::setupFontAndText()
 	m_turnOverSprite.setTexture(m_turnOverTexture);
 	m_turnOverSprite.setPosition(800, 400);
 	m_turnOverSprite.setScale(5, 5);
+
+	myHud.init(m_arialFont);
+
+	m_selectionEnemy.setSize(sf::Vector2f(200, 200));
+	m_selectionEnemy.setOutlineColor(sf::Color::Red);
+	m_selectionEnemy.setOutlineThickness(5);
+	m_selectionEnemy.setFillColor(sf::Color::Transparent);
+	m_selectionEnemy.setPosition(offScreenPos);
+
+	m_selectionSapling.setSize(sf::Vector2f(200, 200));
+	m_selectionSapling.setOutlineColor(sf::Color::Red);
+	m_selectionSapling.setOutlineThickness(5);
+	m_selectionSapling.setFillColor(sf::Color::Transparent);
+	m_selectionSapling.setPosition(offScreenPos);
 }
 
 void Game::movingSprite()
@@ -452,6 +483,7 @@ void Game::attack()
 	if (!sapling[selectedSapling]->getAttack())
 	{
 		sapling[selectedSapling]->attack(*enemy[enemySelected]);
+		myHud.getAction(selectedSapling, enemySelected,sapling[selectedSapling]->getDamgage());
 	}
 
 }
@@ -503,9 +535,21 @@ void Game::enemyMove()
 {
 
 	enemyMoveTimer++;
+	
 	if (enemyMoveTimer > 100)
 	{
 		randomEnemyNumber = 0;
+		if (attackingEnemy < 0)
+		{
+			for (int i = 0; i < currentSaplings; i++)
+			{
+				sapling[i]->resetAttacks();
+				myHud.startTurn();
+				enemyMoveTimer = 0;
+				randomEnemyNumber = 1;
+			}
+			m_gamestate = GameState::PLAYERTURN;
+		}
 		switch (randomEnemyNumber)
 		{
 		case 0:
@@ -529,15 +573,8 @@ void Game::enemyAttack()
 	int random = rand() % currentSaplings;
 
 	sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
+	myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
 	attackingEnemy--;
-	if (attackingEnemy < 0)
-	{
-		for (int i = 0; i < currentSaplings; i++)
-		{
-			sapling[i]->resetAttacks();
-		}
-		m_gamestate = GameState::PLAYERTURN;
-	}
 	
 }
 void Game::enemyHeal()
@@ -556,6 +593,25 @@ void Game::killEnemy()
 	}
 }
 
+void Game::mousePos()
+{
+	sf::Vector2i mousePs = sf::Mouse::getPosition(m_window);
+	m_attackSprite.setColor(sf::Color(255, 255, 255, 255));
+	m_turnOverSprite.setColor(sf::Color(255, 255, 255, 255));
+	if (mousePs.x > m_attackSprite.getPosition().x && mousePs.x < m_attackSprite.getPosition().x + 80
+		&& mousePs.y>m_attackSprite.getPosition().y && mousePs.y < m_attackSprite.getPosition().y + 80)
+	{
+		m_attackSprite.setColor(sf::Color(255, 255, 255, 132));
+	}
+	if (mousePs.x > m_turnOverSprite.getPosition().x && mousePs.x < m_turnOverSprite.getPosition().x + 80
+		&& mousePs.y>m_turnOverSprite.getPosition().y && mousePs.y < m_turnOverSprite.getPosition().y + 80)
+	{
+		m_turnOverSprite.setColor(sf::Color(255, 255, 255, 132));
+	}
+
+	
+}
+
 void Game::checkGrids()
 {
 	for (int i = 0; i < 6; i++)
@@ -570,6 +626,8 @@ void Game::checkGrids()
 				myGrid[i].setEnemyNumber(selectedSapling);
 				sapling[selectedSapling]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
 				sapling[selectedSapling]->setGridNumber(i);
+				myHud.moveAction(selectedSapling, i);
+				m_selectionSapling.setPosition(positions[i]);
 			}
 			else
 			{

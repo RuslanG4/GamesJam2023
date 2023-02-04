@@ -21,6 +21,7 @@
 #include"MeleeEnemy.h"
 #include"Grid.h"
 #include"TurnState.h"
+#include"HUD.h"
 
 const int MAX_SPROUTS = 6;
 const int MAX_ENEMIES = 6;
@@ -56,6 +57,13 @@ private:
 
 	Grid myGrid[6];
 	Grid enemyGrid[6];
+
+	HUD myHud;
+
+	sf::RectangleShape m_selectionSapling;
+	sf::RectangleShape m_selectionEnemy;
+	sf::Vector2f offScreenPos{ -300,-300 };
+
 
 	sf::Sprite m_attackSprite;
 	sf::Texture m_attackTexture;
@@ -126,6 +134,8 @@ private:
 	int randomEnemyNumber = 0;
 
 	void killEnemy();
+
+	void mousePos();
 
 };
 
