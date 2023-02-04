@@ -129,6 +129,16 @@ void Game::processMouseRelease(sf::Event t_event)
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
 			fBox1 = true;
 		}
+		if (t_event.mouseButton.y > F_ROW_1_TOP+200 && t_event.mouseButton.y < F_ROW_1_BOTTOM+200)
+		{
+			std::cout << "Pressed friendly fighters 2 box" << std::endl;
+			fBox1 = true;
+		}
+		if (t_event.mouseButton.y > F_ROW_1_TOP+400 && t_event.mouseButton.y < F_ROW_1_BOTTOM+400)
+		{
+			std::cout << "Pressed friendly fighters 3 box" << std::endl;
+			fBox1 = true;
+		}
 	}
 	
 
