@@ -36,7 +36,7 @@ void Base::setType(Type t_type)
 
 void Base::takeDamage(int t_damage)
 {
-	health -= damage;
+	health -= t_damage;
 }
 
 void Base::attack(Enemy& t_enemy)
