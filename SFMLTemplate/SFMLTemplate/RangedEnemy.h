@@ -14,11 +14,17 @@ public:
 	void takeDamage(int t_damage);
 
 	int getHealth() { return health; };
+	int getDamage() { return damage; };
+
+	bool checkAttacked() { return hasAttacked; };
+	void setAttacked() { hasAttacked = true; };
+	void setUnAttacked() { hasAttacked = false; };
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
 	int health = 45;
 	int damage = 25;
 	int hitChance = 85;
+	bool hasAttacked = false;
 };
 

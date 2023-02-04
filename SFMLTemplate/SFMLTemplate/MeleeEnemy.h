@@ -1,4 +1,5 @@
 #pragma once
+
 #include"Enemy.h"
 
 //hardwood
@@ -15,13 +16,18 @@ public:
 
 	void takeDamage(int t_damage);
 	int getHealth() { return health; };
-	//void attack(Sapling& t_sap);
+	int getDamage() { return damage; };
+
+	bool checkAttacked() { return hasAttacked; };
+	void setAttacked() { hasAttacked = true; };
+	void setUnAttacked() { hasAttacked = false; };
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
 	int health = 110;
 	int damage = 25;
 	int hitChance = 75;
+	bool hasAttacked = false;
 
 };
 

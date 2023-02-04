@@ -116,7 +116,12 @@ private:
 
 	void createEnemies();
 	void createRoots();
-	void setType();
+	void enemyMove();
+	void enemyAttack();
+	void enemyHeal();
+	int attackingEnemy = 0;
+	int enemyMoveTimer = 0;
+	int randomEnemyNumber = 0;
 
 };
 

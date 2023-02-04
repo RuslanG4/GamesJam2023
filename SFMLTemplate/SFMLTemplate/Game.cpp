@@ -275,30 +275,57 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	checkGrids();
-	checkBounds();
-
-	for (int i = 0; i < 6; i++)
+	if (m_gamestate == GameState::PLAYERTURN)
 	{
-		if (enemyGrid[i].checkOccupied())
+		checkGrids();
+		checkBounds();
+		if (heldMouse)
 		{
-			enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
+			movingSprite();
 		}
-		if (myGrid[i].checkOccupied())
+		for (int i = 0; i < 6; i++)
 		{
-			myGrid[i].writeHealth(sapling[myGrid[i].enemyNumberCheck()]->getHealth());
+			if (enemyGrid[i].checkOccupied())
+			{
+				enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
+			}
+			if (myGrid[i].checkOccupied())
+			{
+				myGrid[i].writeHealth(sapling[myGrid[i].enemyNumberCheck()]->getHealth());
+			}
+			if (!myGrid[i].checkOccupied())
+			{
+				myGrid[i].writeHealth(0);
+			}
 		}
-		if (!myGrid[i].checkOccupied())
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 		{
-			myGrid[i].writeHealth(0);
+			m_gamestate = GameState::ENEMYTURN;
+			attackingEnemy = currentEnemies - 1;//currentEnemies;
+		}
+	}
+	
+	if (m_gamestate == GameState::ENEMYTURN)
+	{
+		enemyMove();
+		for (int i = 0; i < 6; i++)
+		{
+			if (enemyGrid[i].checkOccupied())
+			{
+				enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
+			}
+			if (myGrid[i].checkOccupied())
+			{
+				myGrid[i].writeHealth(sapling[myGrid[i].enemyNumberCheck()]->getHealth());
+			}
+			if (!myGrid[i].checkOccupied())
+			{
+				myGrid[i].writeHealth(0);
+			}
 		}
 	}
 
-
-	if (heldMouse)
-	{
-		movingSprite();
-	}
 
 }
 /// <summary>
@@ -417,8 +444,6 @@ void Game::attack()
 
 }
 
-
-
 /// <summary>
 /// creates warriors and rangers
 /// </summary>
@@ -462,6 +487,46 @@ void Game::createRoots()
 
 }
 
+void Game::enemyMove()
+{
+	enemyMoveTimer++;
+	if (enemyMoveTimer > 200)
+	{
+		randomEnemyNumber = 0;
+		switch (randomEnemyNumber)
+		{
+		case 0:
+			enemyAttack();
+			enemyMoveTimer = 0;
+			break;
+		case 1:
+			//enemyHeal();
+			break;
+		case 2:
+			//enemyHeal();
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Game::enemyAttack()
+{
+	int random = rand() % currentSaplings;
+
+	sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
+	attackingEnemy--;
+	if (attackingEnemy < 0)
+	{
+		m_gamestate = GameState::PLAYERTURN;
+	}
+	
+}
+void Game::enemyHeal()
+{
+	//int random = rand() % currentEnemies;
+}
 
 void Game::checkGrids()
 {

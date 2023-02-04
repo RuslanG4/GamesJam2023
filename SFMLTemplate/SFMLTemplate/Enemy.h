@@ -1,8 +1,10 @@
 #pragma once
+
 #include"ClassType.h"
 #include <SFML/Graphics.hpp>
 #include<iostream>
 
+class Sapling;
 
 class Enemy
 {
@@ -18,7 +20,14 @@ public:
 
 	virtual void takeDamage(int t_damage)=0;
 	virtual int getHealth() = 0;
+	virtual int getDamage() = 0;
+
+	virtual bool checkAttacked() = 0;
+	virtual void setAttacked() = 0;
+	virtual void setUnAttacked() = 0;
 
 private:
 
 };
+
+#include"Sapling.h"
