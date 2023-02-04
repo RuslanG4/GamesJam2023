@@ -59,6 +59,12 @@ private:
 
 	sf::Sprite m_attackSprite;
 	sf::Texture m_attackTexture;
+	sf::Sprite m_healSprite;
+	sf::Texture m_healTexture;
+	sf::Sprite m_buffSprite;
+	sf::Texture m_buffTexture;
+	sf::Sprite m_debuffSprite;
+	sf::Texture m_debuffTexture;
 
 	sf::Vector2f mouseLocation = {};
 

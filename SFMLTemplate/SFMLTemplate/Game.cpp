@@ -325,6 +325,9 @@ void Game::render()
 		sapling[i]->render(m_window);
 	}
 	m_window.draw(m_attackSprite);
+	m_window.draw(m_healSprite);
+	m_window.draw(m_buffSprite);
+	m_window.draw(m_debuffSprite);
 	m_window.display();
 }
 
@@ -348,7 +351,7 @@ void Game::setupFontAndText()
 
 	attackButton.setSize(sf::Vector2f(200, 50));
 	attackButton.setPosition(820, 330);
-
+	//Sprite setups
 	if (!m_attackTexture.loadFromFile("ASSETS\\IMAGES\\attack1.png"))
 	{
 		std::cout << "Couldnt load attack" << std::endl;
@@ -358,6 +361,30 @@ void Game::setupFontAndText()
 	m_attackSprite.setPosition(900, 200);
 	m_attackSprite.setScale(5, 5);
 
+	if (!m_healTexture.loadFromFile("ASSETS\\IMAGES\\healing.png"))
+	{
+		std::cout << "Heal not loading" << std::endl;
+	}
+	m_healSprite.setTexture(m_healTexture);
+	m_healSprite.setPosition(800, 200);
+	m_healSprite.setScale(5, 5);
+
+	if (!m_buffTexture.loadFromFile("ASSETS\\IMAGES\\buff.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_buffSprite.setTexture(m_buffTexture);
+	m_buffSprite.setPosition(800, 300);
+	m_buffSprite.setScale(5, 5);
+
+
+	if (!m_debuffTexture.loadFromFile("ASSETS\\IMAGES\\debuff.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_debuffSprite.setTexture(m_debuffTexture);
+	m_debuffSprite.setPosition(900, 300);
+	m_debuffSprite.setScale(5, 5);
 }
 
 void Game::movingSprite()
