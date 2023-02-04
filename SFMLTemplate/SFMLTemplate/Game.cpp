@@ -376,16 +376,16 @@ void Game::createRoots()
 
 void Game::checkGrids()
 {
-	for (int i = 0; i < 6; i++)
-	{
-		if (sapling[selectedSapling]->getPos().x > positions[i].x && sapling[selectedSapling]->getPos().x < positions[i].x + 200 &&
-			sapling[selectedSapling]->getPos().y > positions[i].y && sapling[selectedSapling]->getPos().y < positions[i].y + 200 &&
-			!myGrid[i].checkOccupied())
-		{
-			//myGrid[i].setEnemyNumber(selectedSapling);
-			myGrid[i].setOccupied();
-		}
-	}
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	if (sapling[selectedSapling]->getPos().x > positions[i].x && sapling[selectedSapling]->getPos().x < positions[i].x + 200 &&
+	//		sapling[selectedSapling]->getPos().y > positions[i].y && sapling[selectedSapling]->getPos().y < positions[i].y + 200 &&
+	//		!myGrid[i].checkOccupied())
+	//	{
+	//		//myGrid[i].setEnemyNumber(selectedSapling);
+	//		myGrid[i].setOccupied();
+	//	}
+	//}
 	
 }
 
