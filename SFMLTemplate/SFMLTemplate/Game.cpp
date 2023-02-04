@@ -551,7 +551,8 @@ void Game::killEnemy()
 	{
 		if (enemy[i]->getHealth() <= 0)
 		{
-			enemy[i]->setPosition(sf::Vector2f(-100,-100));
+			enemy[i]->setPosition(sf::Vector2f(-100, -100));
+		}
 	}
 }
 
