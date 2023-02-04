@@ -19,8 +19,10 @@
 #include"Enemy.h"
 #include"RangedEnemy.h"
 #include"MeleeEnemy.h"
+#include"Grid.h"
 
 const int MAX_SPROUTS = 6;
+const int MAX_ENEMIES = 6;
 
 class Game
 {
@@ -49,19 +51,14 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_topScore;
 
-	sf::RectangleShape m_grid[6];
-
-	sf::RectangleShape m_eGrid[6];
+	Grid myGrid[6];
+	Grid enemyGrid[6];
 
 	int currentSaplings = 3;
 
 	Sapling *sapling;
 
-<<<<<<< HEAD
-	Enemy* enemy;
-=======
 	bool fBox1 = false;
->>>>>>> bef3d3f69df5dfdcbaf2ea6feae019ccda63d31e
 
 	sf::Vector2f positions[6]
 	{
@@ -86,7 +83,12 @@ private:
 	GameState m_gamestate = GameState::PLAYERTURN;
 
 	void setType();
-	
+
+	int randomPos = 0;
+	int randomEnemy = 0;
+	int currentEnemies = 3;
+	Enemy* enemy[MAX_ENEMIES];
+
 	void createEnemies();
 
 };

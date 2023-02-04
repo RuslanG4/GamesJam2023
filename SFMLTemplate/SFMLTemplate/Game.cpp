@@ -11,7 +11,7 @@ Game::Game() :
 	m_exitGame{ false } //when true game will exit
 {
 	sapling = new Base;
-	enemy = new MeleeEnemy;
+	createEnemies();
 	setupFontAndText();
 
 }
@@ -164,13 +164,20 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Green);
 
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		enemy[i]->render(m_window);
+	}
+
+	
 	for (int i = 0; i < 6; i++)
 	{
-		m_window.draw(m_grid[i]);
-		m_window.draw(m_eGrid[i]);
+		myGrid[i].render(m_window);
+		enemyGrid[i].render(m_window);
 	}
+
+	
 	sapling->render(m_window);
-	enemy->render(m_window);
 	m_window.display();
 }
 
@@ -178,24 +185,13 @@ void Game::setupFontAndText()
 {
 	for (int i = 0; i < 6 ; i++)
 	{
-		m_grid[i].setSize(sf::Vector2f(200, 200));
-		m_grid[i].setFillColor(sf::Color::Transparent);
-		m_grid[i].setPosition(positions[i]);
-		m_grid[i].setOutlineColor(sf::Color::Black);
-		m_grid[i].setOutlineThickness(3);
+		myGrid[i].setPosition(positions[i]);
 
-		m_eGrid[i].setSize(sf::Vector2f(200, 200));
-		m_eGrid[i].setFillColor(sf::Color::Transparent);
-		m_eGrid[i].setPosition(ePositions[i]);
-		m_eGrid[i].setOutlineColor(sf::Color::Black);
-		m_eGrid[i].setOutlineThickness(3);
+		enemyGrid[i].setPosition(ePositions[i]);
 	}
 
 	sapling->init();
 	sapling->setPosition(sf::Vector2f(positions[0].x + 100, positions[0].y + 100));
-
-	enemy->init();
-	enemy->setPosition(sf::Vector2f(ePositions[0].x + 100, ePositions[0].y + 100));
 
 }
 
@@ -220,6 +216,37 @@ void Game::setType()
 
 void Game::createEnemies()
 {
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		randomPos = rand() % 6;
+		if (randomPos % 2 == 0)
+		{
+			while (myGrid[randomPos].checkOccupied())
+			{
+				randomPos = rand() % 6;
+			}
+				enemy[i] = new MeleeEnemy;
+				enemy[i]->init();
+				enemy[i]->setType(Type::FIGHTER);
+				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
+				myGrid[randomPos].setOccupied();
+			
+		}
+		else
+		{
+
+			while (myGrid[randomPos].checkOccupied())
+			{
+				randomPos = rand() % 6;
+			}
+				enemy[i] = new RangedEnemy;
+				enemy[i]->init();
+				enemy[i]->setType(Type::ARCHER);
+				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
+				myGrid[randomPos].setOccupied();
+		
+		}
+	}
 
 }
 
