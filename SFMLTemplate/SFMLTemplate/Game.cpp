@@ -580,15 +580,12 @@ void Game::enemyAttack()
 	if (!enemy[attackingEnemy]->checkDead())
 	{
 		sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
+		enemy[attackingEnemy]->setPosition(offScreenPos);
 		myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
 	}
 	else
 	{
 		numOfDeadEnemies++;
-		if (numOfDeadEnemies >= 3)
-		{
-			std::cout << "youwin";
-		}
 	}
 	attackingEnemy--;
 	
