@@ -287,7 +287,7 @@ void Game::render()
 	{
 		sapling[i]->render(m_window);
 	}
-	m_window.draw(attackButton);
+	m_window.draw(m_attackSprite);
 	m_window.display();
 }
 
@@ -310,6 +310,15 @@ void Game::setupFontAndText()
 
 	attackButton.setSize(sf::Vector2f(200, 50));
 	attackButton.setPosition(820, 330);
+
+	if (!m_attackTexture.loadFromFile("ASSETS\\IMAGES\\attack1.png"))
+	{
+		std::cout << "Couldnt load attack" << std::endl;
+	}
+
+	m_attackSprite.setTexture(m_attackTexture);
+	m_attackSprite.setPosition(900, 200);
+	m_attackSprite.setScale(5, 5);
 
 }
 
