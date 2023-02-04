@@ -22,8 +22,8 @@ private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
 	bool hasAttacked = false;
-	int health = 100;
-	int damage = 0;
+	int health = 20;
+	int damage = 20;
 	int hitChance;
 	int gridNum;
 
