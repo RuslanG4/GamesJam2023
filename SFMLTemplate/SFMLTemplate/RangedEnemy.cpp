@@ -18,9 +18,9 @@ void RangedEnemy::init()
 void RangedEnemy::takeDamage(int t_damage)
 {
 	health -= t_damage;
-	if (health < 50)
+	if (health <= 0)
 	{
-		m_shape.setFillColor(sf::Color::Magenta);
+		health = 0;
 	}
 }
 

@@ -21,6 +21,7 @@ public:
 	virtual void setGridNumber(int t_number) = 0;
 	virtual int checkGridNumber() = 0;
 	virtual int getHealth() = 0;
+	virtual void resetAttacks() = 0;
 private:
 
 };

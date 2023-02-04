@@ -65,6 +65,8 @@ private:
 	sf::Texture m_buffTexture;
 	sf::Sprite m_debuffSprite;
 	sf::Texture m_debuffTexture;
+	sf::Sprite m_turnOverSprite;
+	sf::Texture m_turnOverTexture;
 
 	sf::Vector2f mouseLocation = {};
 
@@ -122,6 +124,8 @@ private:
 	int attackingEnemy = 0;
 	int enemyMoveTimer = 0;
 	int randomEnemyNumber = 0;
+
+	void killEnemy();
 
 };
 

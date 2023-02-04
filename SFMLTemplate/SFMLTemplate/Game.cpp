@@ -263,6 +263,14 @@ void Game::processMouseRelease(sf::Event t_event)
 			attack();
 		}
 	}
+	if (t_event.mouseButton.x > 800 && t_event.mouseButton.x < 880)
+	{
+		if (t_event.mouseButton.y > 400 && t_event.mouseButton.y < 480)
+		{
+			m_gamestate = GameState::ENEMYTURN;
+			attackingEnemy = currentEnemies - 1;//currentEnemies;
+		}
+	}
 }
 
 /// <summary>
@@ -298,12 +306,7 @@ void Game::update(sf::Time t_deltaTime)
 				myGrid[i].writeHealth(0);
 			}
 		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
-		{
-			m_gamestate = GameState::ENEMYTURN;
-			attackingEnemy = currentEnemies - 1;//currentEnemies;
-		}
+		killEnemy();
 	}
 	
 	if (m_gamestate == GameState::ENEMYTURN)
@@ -355,6 +358,7 @@ void Game::render()
 	m_window.draw(m_healSprite);
 	m_window.draw(m_buffSprite);
 	m_window.draw(m_debuffSprite);
+	m_window.draw(m_turnOverSprite);
 	m_window.display();
 }
 
@@ -412,6 +416,14 @@ void Game::setupFontAndText()
 	m_debuffSprite.setTexture(m_debuffTexture);
 	m_debuffSprite.setPosition(900, 300);
 	m_debuffSprite.setScale(5, 5);
+
+	if (!m_turnOverTexture.loadFromFile("ASSETS\\IMAGES\\endTurn.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_turnOverSprite.setTexture(m_turnOverTexture);
+	m_turnOverSprite.setPosition(800, 400);
+	m_turnOverSprite.setScale(5, 5);
 }
 
 void Game::movingSprite()
@@ -489,8 +501,9 @@ void Game::createRoots()
 
 void Game::enemyMove()
 {
+
 	enemyMoveTimer++;
-	if (enemyMoveTimer > 200)
+	if (enemyMoveTimer > 100)
 	{
 		randomEnemyNumber = 0;
 		switch (randomEnemyNumber)
@@ -519,6 +532,10 @@ void Game::enemyAttack()
 	attackingEnemy--;
 	if (attackingEnemy < 0)
 	{
+		for (int i = 0; i < currentSaplings; i++)
+		{
+			sapling[i]->resetAttacks();
+		}
 		m_gamestate = GameState::PLAYERTURN;
 	}
 	
@@ -526,6 +543,16 @@ void Game::enemyAttack()
 void Game::enemyHeal()
 {
 	//int random = rand() % currentEnemies;
+}
+
+void Game::killEnemy()
+{
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		if (enemy[i]->getHealth() <= 0)
+		{
+			enemy[i]->setPosition(sf::Vector2f(-100,-100));
+	}
 }
 
 void Game::checkGrids()

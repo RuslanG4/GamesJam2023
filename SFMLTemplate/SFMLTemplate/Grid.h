@@ -16,6 +16,8 @@ public:
 	void setEnemyNumber(int t_number) { enemyNumber = t_number; };
 	int enemyNumberCheck() { return enemyNumber; };
 	void writeHealth(int enemy);
+	void boxSelected(){ m_shape.setOutlineColor(sf::Color::Red); }
+	void boxDeSelected() { m_shape.setOutlineColor(sf::Color::Black); }
 private:
 	sf::RectangleShape m_shape;
 	bool occupied = false;
