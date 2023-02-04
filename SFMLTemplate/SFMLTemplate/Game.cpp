@@ -257,6 +257,14 @@ void Game::update(sf::Time t_deltaTime)
 	checkGrids();
 	checkBounds();
 
+	for (int i = 0; i < 6; i++)
+	{
+		if (enemyGrid[i].checkOccupied())
+		{
+			enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
+		}
+	}
+
 
 	if (heldMouse)
 	{
@@ -304,8 +312,9 @@ void Game::setupFontAndText()
 	for (int i = 0; i < 6 ; i++)
 	{
 		myGrid[i].setPosition(positions[i]);
-
+		myGrid[i].init(m_arialFont);
 		enemyGrid[i].setPosition(ePositions[i]);
+		enemyGrid[i].init(m_arialFont);
 	}
 
 	attackButton.setSize(sf::Vector2f(200, 50));
@@ -368,8 +377,8 @@ void Game::createRoots()
 				randomPos = rand() % 6;
 			}
 			sapling[i] = new Base;
-			sapling[i]->setType(Type::ARCHER);
 			sapling[i]->init();
+			sapling[i]->setType(Type::ARCHER);
 			sapling[i]->setPosition(sf::Vector2f(positions[randomPos].x + 100, positions[randomPos].y + 100));
 			myGrid[randomPos].setOccupied();
 			sapling[i]->setGridNumber(randomPos);
@@ -384,8 +393,8 @@ void Game::createRoots()
 				randomPos = rand() % 6;
 			}
 			sapling[i] = new Base;
-			sapling[i]->setType(Type::ARCHER);
 			sapling[i]->init();
+			sapling[i]->setType(Type::FIGHTER);
 			sapling[i]->setPosition(sf::Vector2f(positions[randomPos].x + 100, positions[randomPos].y + 100));
 			myGrid[randomPos].setOccupied();
 			sapling[i]->setGridNumber(randomPos);
@@ -393,7 +402,9 @@ void Game::createRoots()
 
 		}
 	}
+
 }
+
 
 void Game::checkGrids()
 {
@@ -434,7 +445,6 @@ void Game::createEnemies()
 			}
 				enemy[i] = new MeleeEnemy;
 				enemy[i]->init();
-				enemy[i]->setType(Type::FIGHTER);
 				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
 				enemyGrid[randomPos].setOccupied();
 				enemyGrid[randomPos].setEnemyNumber(i);
@@ -449,7 +459,6 @@ void Game::createEnemies()
 			}
 				enemy[i] = new RangedEnemy;
 				enemy[i]->init();
-				enemy[i]->setType(Type::ARCHER);
 				enemy[i]->setPosition(sf::Vector2f(ePositions[randomPos].x + 100, ePositions[randomPos].y + 100));
 				enemyGrid[randomPos].setOccupied();
 				enemyGrid[randomPos].setEnemyNumber(i);

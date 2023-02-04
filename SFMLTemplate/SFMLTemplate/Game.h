@@ -107,6 +107,7 @@ private:
 
 	void createEnemies();
 	void createRoots();
+	void setType();
 
 };
 
