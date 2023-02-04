@@ -48,8 +48,7 @@ private:
 
 	sf::RenderWindow m_window; // main SFML window
 
-	sf::Font m_ArialBlackfont; // font used by message
-	sf::Text m_topScore;
+	sf::Font m_font; // font used by message
 
 	Grid myGrid[6];
 	Grid enemyGrid[6];

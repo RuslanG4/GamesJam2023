@@ -1,6 +1,6 @@
 #include "MeleeEnemy.h"
 
-void MeleeEnemy::update()
+void MeleeEnemy::update(Sapling& t_sap)
 {
 }
 
@@ -22,4 +22,9 @@ void MeleeEnemy::takeDamage(int t_damage)
 	{
 		m_shape.setFillColor(sf::Color::Magenta);
 	}
+}
+
+void MeleeEnemy::attack(Sapling& t_sap)
+{
+	t_sap.takeDamage(damage);
 }
