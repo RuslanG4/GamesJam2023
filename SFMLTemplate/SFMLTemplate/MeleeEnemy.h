@@ -15,7 +15,7 @@ public:
 
 	void takeDamage(int t_damage);
 	int getHealth() { return health; };
-	void attack();
+	//void attack(Sapling& t_sap);
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;

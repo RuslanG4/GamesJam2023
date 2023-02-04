@@ -13,16 +13,6 @@ void Base::init()
 {
 	m_shape.setFillColor(sf::Color::Blue);
 	m_shape.setOrigin(16, 16);
-	if (m_type == Type::FIGHTER)
-	{
-		health = 110;
-		damage = 60;
-	}
-	if (m_type == Type::ARCHER)
-	{
-		health = 90;
-		damage = 60;
-	}
 }
 
 void Base::setType(Type t_type)
@@ -31,15 +21,16 @@ void Base::setType(Type t_type)
 	switch (m_type)
 	{
 	case Type::FIGHTER:
-		health = 20;
+		health = 110;
 		damage = 30;
 		hitChance = 75;
 		break;
 	case Type::ARCHER:
-		health = 50;
+		health = 90;
 		damage = 25;
 		hitChance = 80;
 		break;
+
 	}
 }
 

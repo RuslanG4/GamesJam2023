@@ -17,6 +17,7 @@ public:
 
 	void setGridNumber(int t_number) { gridNum = t_number; };
 	int checkGridNumber() { return gridNum; };
+	int getHealth() { return health; };
 
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };

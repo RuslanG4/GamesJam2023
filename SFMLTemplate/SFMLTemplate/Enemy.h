@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include"ClassType.h"
 #include <SFML/Graphics.hpp>
 #include<iostream>
@@ -19,7 +18,7 @@ public:
 
 	virtual void takeDamage(int t_damage)=0;
 	virtual int getHealth() = 0;
-	virtual void attack()=0;
+
 private:
 
 };

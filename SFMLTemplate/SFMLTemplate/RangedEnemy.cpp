@@ -24,6 +24,4 @@ void RangedEnemy::takeDamage(int t_damage)
 	}
 }
 
-void RangedEnemy::attack()
-{
-}
+

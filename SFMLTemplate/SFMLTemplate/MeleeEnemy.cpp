@@ -24,6 +24,4 @@ void MeleeEnemy::takeDamage(int t_damage)
 	}
 }
 
-void MeleeEnemy::attack()
-{
-}
+

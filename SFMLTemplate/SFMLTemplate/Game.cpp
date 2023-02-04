@@ -276,6 +276,14 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
 		}
+		if (myGrid[i].checkOccupied())
+		{
+			myGrid[i].writeHealth(sapling[myGrid[i].enemyNumberCheck()]->getHealth());
+		}
+		if (!myGrid[i].checkOccupied())
+		{
+			myGrid[i].writeHealth(0);
+		}
 	}
 
 
