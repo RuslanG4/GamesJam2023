@@ -180,6 +180,7 @@ void Game::processMouse(sf::Event t_event)
 		}
 	}
 
+
 	//Enemy boxes
 	//Enemy Fighters Coloum 1 & process rows
 	if (t_event.mouseButton.x > E_COL_LEFT && t_event.mouseButton.x < E_COL_RIGHT)
@@ -295,11 +296,15 @@ void Game::setupFontAndText()
 
 void Game::movingSprite()
 {
-	sapling->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
+	if (sapling )
+	{
+		sapling->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
+	}
+	if (sapling->getPos().x > 600 || sapling->getPos().x<200)
+	{
+		sapling->setPosition(sf::Vector2f(positions->x+100, positions->y+100));
+	}
 }
-
-
-
 void Game::setType()
 {
 	for (int i = 0; i < 6; i+=2) // backline
