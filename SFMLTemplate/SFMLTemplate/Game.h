@@ -44,6 +44,7 @@ private:
 	void render();
 	void setupFontAndText();
 	void movingSprite();
+	void checkBounds();
 
 	bool m_exitGame; // control exiting game
 
