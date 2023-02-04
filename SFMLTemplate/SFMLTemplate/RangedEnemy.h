@@ -22,7 +22,7 @@ private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
 	int health = 45;
-	int damage = 25;
+	int damage = 45;
 	int hitChance = 85;
 	bool hasAttacked = false;
 	bool isDead=false;

@@ -10,6 +10,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
+	setupFont();
 	createRoots();
 	createEnemies();
 	setupFontAndText();
@@ -272,7 +273,12 @@ void Game::processMouseRelease(sf::Event t_event)
 		if (t_event.mouseButton.y > ATTACK_TOP && t_event.mouseButton.y < ATTACK_BOTTOM)
 		{
 			std::cout << "Attack" << std::endl;
+			if (!sapling[selectedSapling]->getAttack())
+			{
+				m_text.setPosition(m_selectionEnemy.getPosition().x + 100, m_selectionEnemy.getPosition().y + 100);
+			}
 			attack();
+			startLetter = true;
 		}
 	}
 	if (t_event.mouseButton.x > 800 && t_event.mouseButton.x < 880)
@@ -342,7 +348,17 @@ void Game::update(sf::Time t_deltaTime)
 			}
 		}
 	}
-
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		if (enemy[i]->checkDead())
+		{
+			enemy[i]->setPosition(offScreenPos);
+		}
+	}
+	if (startLetter)
+	{
+		damageNumberAnimate();
+	}
 }
 /// <summary>
 /// draw the frame and then switch buffers
@@ -355,8 +371,6 @@ void Game::render()
 	{
 		enemy[i]->render(m_window);
 	}
-
-	//m_window.draw(m_text);
 	
 	for (int i = 0; i < 6; i++)
 	{
@@ -376,19 +390,13 @@ void Game::render()
 	m_window.draw(m_selectionSapling);
 	m_window.draw(m_selectionEnemy);
 	m_window.draw(m_selectionHeal);
+
+	m_window.draw(m_text);
 	m_window.display();
 }
 
 void Game::setupFontAndText()
 {
-	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
-	{
-		std::cout << "error loading font";
-	}
-	m_text.setFont(m_arialFont);
-	m_text.setCharacterSize(32U);
-	m_text.setString("YAYAYAYYA");
-
 	for (int i = 0; i < 6 ; i++)
 	{
 		myGrid[i].setPosition(positions[i]);
@@ -481,6 +489,18 @@ void Game::checkBounds()
 	}
 
 	
+}
+
+void Game::setupFont()
+{
+	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
+	{
+		std::cout << "error loading font";
+	}
+	m_text.setFont(m_arialFont);
+	m_text.setOutlineColor(sf::Color::Red);
+	m_text.setOutlineThickness(4);
+	m_text.setCharacterSize(50U);
 }
 
 void Game::attack()
@@ -580,11 +600,12 @@ void Game::enemyAttack()
 	if (!enemy[attackingEnemy]->checkDead())
 	{
 		sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
-		enemy[attackingEnemy]->setPosition(offScreenPos);
 		myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
+		startLetter = true;
 	}
 	else
 	{
+		enemy[attackingEnemy]->setPosition(offScreenPos);
 		numOfDeadEnemies++;
 	}
 	attackingEnemy--;
@@ -623,6 +644,27 @@ void Game::mousePos()
 	}
 
 	
+}
+
+void Game::damageNumberAnimate()
+{
+	sf::Vector2f pos{ m_text.getPosition() };
+	if (!hasSpawned)
+	{
+		textVelocity.y = -sqrtf(2.0f * 1.0f * 200);
+		hasSpawned = true;
+	}
+	m_text.setString(std::to_string(sapling[selectedSapling]->getDamgage()));
+	textVelocity.y+=2;
+
+	pos += textVelocity;
+	m_text.setPosition(pos);
+	
+	if (m_text.getPosition().y > 1080)
+	{
+		hasSpawned = false;
+		startLetter = false;
+	}
 }
 
 void Game::checkGrids()

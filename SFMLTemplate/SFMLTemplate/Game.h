@@ -52,8 +52,10 @@ private:
 
 	sf::RenderWindow m_window; // main SFML window
 
+	void setupFont();
 	sf::Font m_arialFont;
 	sf::Text m_text;
+	//sf::Text m_enemyText;
 
 	Grid myGrid[6];
 	Grid enemyGrid[6];
@@ -139,6 +141,11 @@ private:
 	void killEnemy();
 
 	void mousePos();
+
+	bool startLetter = false;
+	bool hasSpawned = false;
+	sf::Vector2f textVelocity;
+	void damageNumberAnimate();
 
 };
 
