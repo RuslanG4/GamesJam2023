@@ -311,17 +311,16 @@ void Game::movingSprite()
 
 void Game::checkBounds()
 {
-	for (int i = 0; i < currentSaplings; i++)
+
+	if (sapling[selectedSapling]->getPos().x > 600 || sapling[selectedSapling]->getPos().x < 200)
 	{
-		if (sapling[i]->getPos().x > 600 || sapling[i]->getPos().x < 200)
-		{
-			sapling[i]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
-		}
-		if (sapling[i]->getPos().y < 100 || sapling[i]->getPos().y > 700)
-		{
-			sapling[i]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
-		}
+		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
 	}
+	if (sapling[selectedSapling]->getPos().y < 100 || sapling[selectedSapling]->getPos().y > 700)
+	{
+		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
+	}
+
 	
 }
 
