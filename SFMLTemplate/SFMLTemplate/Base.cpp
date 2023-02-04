@@ -32,12 +32,14 @@ void Base::setType(Type t_type)
 	{
 	case Type::FIGHTER:
 		m_sprite.setTexture(m_texture);
+		maxHealth = 110;
 		health = 110;
 		damage = 30;
 		hitChance = 75;
 		break;
 	case Type::ARCHER:
 		m_sprite.setTexture(m_textureRanged);
+		maxHealth = 90;
 		health = 90;
 		damage = 25;
 		hitChance = 80;
@@ -55,4 +57,18 @@ void Base::attack(Enemy& t_enemy)
 {
 	t_enemy.takeDamage(damage);
 	hasAttacked = true;
+}
+
+void Base::heal(Sapling& t_sap)
+{
+	t_sap.getHeal();
+}
+
+void Base::getHeal()
+{
+	health += 10;
+	if (health > maxHealth)
+	{
+		health = maxHealth;
+	}
 }

@@ -62,6 +62,7 @@ private:
 
 	sf::RectangleShape m_selectionSapling;
 	sf::RectangleShape m_selectionEnemy;
+	sf::RectangleShape m_selectionHeal;
 	sf::Vector2f offScreenPos{ -300,-300 };
 
 
@@ -87,6 +88,7 @@ private:
 
 	int selectedSapling = 0;
 	int enemySelected = 0;
+	int healSelection = 0;
 
 	TurnState m_turnstate = TurnState::PLAYERTURN;
 
@@ -129,9 +131,10 @@ private:
 	void enemyMove();
 	void enemyAttack();
 	void enemyHeal();
-	int attackingEnemy = 0;
+	int attackingEnemy = 3;
 	int enemyMoveTimer = 0;
 	int randomEnemyNumber = 0;
+	int numOfDeadEnemies = 0;
 
 	void killEnemy();
 

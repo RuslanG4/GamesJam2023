@@ -16,9 +16,8 @@ public:
 	int getHealth() { return health; };
 	int getDamage() { return damage; };
 
-	bool checkAttacked() { return hasAttacked; };
-	void setAttacked() { hasAttacked = true; };
-	void setUnAttacked() { hasAttacked = false; };
+	bool checkDead() { return isDead; };
+	void kill() { isDead = true; }
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
@@ -26,5 +25,6 @@ private:
 	int damage = 25;
 	int hitChance = 85;
 	bool hasAttacked = false;
+	bool isDead=false;
 };
 

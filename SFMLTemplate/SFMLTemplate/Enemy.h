@@ -22,9 +22,9 @@ public:
 	virtual int getHealth() = 0;
 	virtual int getDamage() = 0;
 
-	virtual bool checkAttacked() = 0;
-	virtual void setAttacked() = 0;
-	virtual void setUnAttacked() = 0;
+	virtual bool checkDead() = 0;
+
+	virtual void kill() = 0;
 
 private:
 

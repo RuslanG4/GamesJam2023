@@ -23,6 +23,8 @@ public:
 	virtual int getHealth() = 0;
 	virtual void resetAttacks() = 0;
 	virtual int getDamgage() = 0;
+	virtual void heal(Sapling& t_sap) = 0;
+	virtual void getHeal() = 0;
 private:
 
 };

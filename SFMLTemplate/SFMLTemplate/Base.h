@@ -20,6 +20,8 @@ public:
 	int getHealth() { return health; };
 	void resetAttacks() { hasAttacked = false; }
 	int getDamgage() { return damage; };
+	void heal(Sapling& t_sap);
+	void getHeal();
 
 private:
 	sf::Sprite m_sprite;
@@ -29,6 +31,7 @@ private:
 	Type m_type = Type::NONE;
 	bool hasAttacked = false;
 	int health = 20;
+	int maxHealth;
 	int damage = 20;
 	int hitChance;
 	int gridNum;

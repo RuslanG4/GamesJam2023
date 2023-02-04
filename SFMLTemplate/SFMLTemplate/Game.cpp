@@ -104,7 +104,6 @@ void Game::processMouse(sf::Event t_event)
 	const int E_ROW_TOP = 100;
 	const int E_ROW_BOTTOM = 300;
 
-
 	//Friendly
 	//Friendly archers Coloum 1 & process rows 
 	if (t_event.mouseButton.x > F_COL_LEFT && t_event.mouseButton.x < F_COL_RIGHT)
@@ -118,8 +117,8 @@ void Game::processMouse(sf::Event t_event)
 				selectedSapling = myGrid[0].enemyNumberCheck();
 				myGrid[0].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[0]);
-
 			}
+
 
 			pressedBox = true;
 			heldMouse = true;
@@ -376,6 +375,7 @@ void Game::render()
 	myHud.render(m_window);
 	m_window.draw(m_selectionSapling);
 	m_window.draw(m_selectionEnemy);
+	m_window.draw(m_selectionHeal);
 	m_window.display();
 }
 
@@ -455,6 +455,12 @@ void Game::setupFontAndText()
 	m_selectionSapling.setOutlineThickness(5);
 	m_selectionSapling.setFillColor(sf::Color::Transparent);
 	m_selectionSapling.setPosition(offScreenPos);
+
+	m_selectionHeal.setSize(sf::Vector2f(200, 200));
+	m_selectionHeal.setOutlineColor(sf::Color::Blue);
+	m_selectionHeal.setOutlineThickness(5);
+	m_selectionHeal.setFillColor(sf::Color::Transparent);
+	m_selectionHeal.setPosition(offScreenPos);
 }
 
 void Game::movingSprite()
@@ -535,7 +541,6 @@ void Game::enemyMove()
 {
 
 	enemyMoveTimer++;
-	
 	if (enemyMoveTimer > 100)
 	{
 		randomEnemyNumber = 0;
@@ -571,9 +576,20 @@ void Game::enemyMove()
 void Game::enemyAttack()
 {
 	int random = rand() % currentSaplings;
-
-	sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
-	myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
+	
+	if (!enemy[attackingEnemy]->checkDead())
+	{
+		sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
+		myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
+	}
+	else
+	{
+		numOfDeadEnemies++;
+		if (numOfDeadEnemies >= 3)
+		{
+			std::cout << "youwin";
+		}
+	}
 	attackingEnemy--;
 	
 }
@@ -588,7 +604,7 @@ void Game::killEnemy()
 	{
 		if (enemy[i]->getHealth() <= 0)
 		{
-			enemy[i]->setPosition(sf::Vector2f(-100, -100));
+			enemy[i]->kill();
 		}
 	}
 }
@@ -635,9 +651,6 @@ void Game::checkGrids()
 			}
 		}
 	}
-
-	//std::cout << selectedSapling << "\n";
-	
 }
 
 void Game::createEnemies()
