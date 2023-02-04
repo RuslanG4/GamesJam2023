@@ -56,10 +56,15 @@ private:
 
 	sf::Vector2f mouseLocation = {};
 
+	sf::RectangleShape attackButton;
+	bool pressedAttack = false;
+	void attack();
+
 	int currentSaplings = 3;
 
 	Sapling *sapling;
 	int selectedSapling = 0;
+	int enemySelected = 0;
 
 
 	bool pressedBox = false;

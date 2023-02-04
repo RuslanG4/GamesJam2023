@@ -1,8 +1,8 @@
 #pragma once
+#pragma once
 #include"ClassType.h"
 #include <SFML/Graphics.hpp>
 #include<iostream>
-#include"Sapling.h"
 
 
 class Enemy

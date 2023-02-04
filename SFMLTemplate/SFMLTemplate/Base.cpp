@@ -25,13 +25,12 @@ void Base::init()
 	}
 }
 
-void Base::attack(Enemy& t_enemy)
-{
-	t_enemy.takeDamage(damage);
-	//hasAttacked = true;
-}
-
 void Base::takeDamage(int t_damage)
 {
 	health -= damage;
+}
+
+void Base::attack(Enemy& t_enemy)
+{
+	t_enemy.takeDamage(damage);
 }
