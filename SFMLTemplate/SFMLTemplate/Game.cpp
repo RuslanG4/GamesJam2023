@@ -98,6 +98,7 @@ void Game::processMouse(sf::Event t_event)
 	const int F_COL_RIGHT = 400;
 	const int F_ROW_TOP = 100;
 	const int F_ROW_BOTTOM = 300;
+
 	const int E_COL_LEFT = 1320;
 	const int E_COL_RIGHT = 1520;
 	const int E_ROW_TOP = 100;
@@ -110,19 +111,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 	}
@@ -132,19 +133,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
-			fBox1 = true;
+			pressedBox = true;
 			heldMouse = true;
 		}
 	}
@@ -155,8 +156,40 @@ void Game::processMouse(sf::Event t_event)
 	{
 		if (t_event.mouseButton.y > E_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
-			std::cout << "Enemy press" << std::endl;
+			std::cout << "Pressed Enemy fighter 1 box" << std::endl;
+			pressedBox = true;
 		}
+		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
+		{
+			std::cout << "Pressed Enemy fighter 2 box" << std::endl;
+			pressedBox = true;
+		}
+		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
+		{
+			std::cout << "Pressed Enemy fighter 3 box" << std::endl;
+			pressedBox = true;
+		}
+
+	}
+	//Enemy Archers Coloum 2 & process rows
+	if (t_event.mouseButton.x > E_COL_LEFT +200 && t_event.mouseButton.x < E_COL_RIGHT+200)
+	{
+		if (t_event.mouseButton.y > E_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
+		{
+			std::cout << "Pressed Enemy archer 1 box" << std::endl;
+			pressedBox = true;
+		}
+		if (t_event.mouseButton.y > E_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
+		{
+			std::cout << "Pressed Enemy archer 2 box" << std::endl;
+			pressedBox = true;
+		}
+		if (t_event.mouseButton.y > E_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
+		{
+			std::cout << "Pressed Enemy archer 3 box" << std::endl;
+			pressedBox = true;
+		}
+
 	}
 	
 

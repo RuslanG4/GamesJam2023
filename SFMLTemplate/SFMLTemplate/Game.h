@@ -63,7 +63,7 @@ private:
 
 	Enemy* enemy;
 
-	bool fBox1 = false;
+	bool pressedBox = false;
 	bool heldMouse = false;
 
 
