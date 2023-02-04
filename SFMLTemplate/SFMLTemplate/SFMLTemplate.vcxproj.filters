@@ -45,11 +45,14 @@
     <ClCompile Include="Sapling.cpp">
       <Filter>Source Files\Sapling</Filter>
     </ClCompile>
-    <ClCompile Include="RangedEnemy.cpp">
+    <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RangedEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +74,14 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="RangedEnemy.h">
+    <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MeleeEnemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedEnemy.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

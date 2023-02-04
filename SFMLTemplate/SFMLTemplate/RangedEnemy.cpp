@@ -14,3 +14,16 @@ void RangedEnemy::init()
 	m_shape.setFillColor(sf::Color::Red);
 	m_shape.setOrigin(16, 16);
 }
+
+void RangedEnemy::takeDamage(int t_damage)
+{
+	health -= t_damage;
+	if (health < 50)
+	{
+		m_shape.setFillColor(sf::Color::Magenta);
+	}
+}
+
+void RangedEnemy::attack()
+{
+}
