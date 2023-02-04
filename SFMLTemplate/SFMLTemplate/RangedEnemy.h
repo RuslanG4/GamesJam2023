@@ -1,7 +1,7 @@
 #pragma once
-#include"Sapling.h"
+#include"Enemy.h"
 
-class Base : public Sapling
+class RangedEnemy : public Enemy
 {
 public:
 	void update();
@@ -14,6 +14,5 @@ public:
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;
-
 };
 

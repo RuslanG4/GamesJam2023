@@ -11,6 +11,6 @@ void Base::render(sf::RenderWindow& win)
 
 void Base::init()
 {
-	m_shape.setFillColor(sf::Color::Red);
+	m_shape.setFillColor(sf::Color::Blue);
 	m_shape.setOrigin(16, 16);
 }

@@ -15,6 +15,12 @@
 #include<iostream>
 #include"Sapling.h"
 #include"Base.h"
+#include"GameState.h"
+#include"Enemy.h"
+#include"RangedEnemy.h"
+#include"MeleeEnemy.h"
+
+const int MAX_SPROUTS = 6;
 
 class Game
 {
@@ -47,7 +53,11 @@ private:
 
 	sf::RectangleShape m_eGrid[6];
 
+	int currentSaplings = 3;
+
 	Sapling *sapling;
+
+	Enemy* enemy;
 
 	sf::Vector2f positions[6]
 	{
@@ -69,8 +79,11 @@ private:
 		{1520,500}
 	};
 
-	
+	GameState m_gamestate = GameState::PLAYERTURN;
 
+	void setType();
+	
+	void createEnemies();
 
 };
 

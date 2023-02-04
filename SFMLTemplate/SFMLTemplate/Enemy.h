@@ -4,7 +4,7 @@
 #include<iostream>
 
 
-class Sapling
+class Enemy
 {
 public:
 	virtual void update() = 0;
@@ -17,4 +17,3 @@ public:
 private:
 
 };
-

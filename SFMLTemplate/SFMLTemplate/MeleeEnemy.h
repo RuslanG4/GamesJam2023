@@ -1,7 +1,7 @@
 #pragma once
-#include"Sapling.h"
+#include"Enemy.h"
 
-class Base : public Sapling
+class MeleeEnemy : public Enemy
 {
 public:
 	void update();

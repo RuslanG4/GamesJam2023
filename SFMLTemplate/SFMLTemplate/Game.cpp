@@ -11,6 +11,7 @@ Game::Game() :
 	m_exitGame{ false } //when true game will exit
 {
 	sapling = new Base;
+	enemy = new MeleeEnemy;
 	setupFontAndText();
 
 }
@@ -109,6 +110,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	setType();
 
 }
 /// <summary>
@@ -124,6 +126,7 @@ void Game::render()
 		m_window.draw(m_eGrid[i]);
 	}
 	sapling->render(m_window);
+	enemy->render(m_window);
 	m_window.display();
 }
 
@@ -146,6 +149,33 @@ void Game::setupFontAndText()
 
 	sapling->init();
 	sapling->setPosition(sf::Vector2f(positions[0].x + 100, positions[0].y + 100));
+
+	enemy->init();
+	enemy->setPosition(sf::Vector2f(ePositions[0].x + 100, ePositions[0].y + 100));
+
+}
+
+void Game::setType()
+{
+	for (int i = 0; i < 6; i+=2) // backline
+	{
+		if (sapling->getPos() == sf::Vector2f(positions[i].x + 100, positions[0].y + 100))
+		{
+			sapling->setType(Type::ARCHER);
+		}
+	}
+	for (int i = 1; i < 6; i += 2) //front line
+	{
+		if (sapling->getPos() == sf::Vector2f(positions[i].x + 100, positions[0].y + 100))
+		{
+			sapling->setType(Type::FIGHTER);
+		}
+	}
+	
+}
+
+void Game::createEnemies()
+{
 
 }
 

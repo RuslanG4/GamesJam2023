@@ -133,12 +133,19 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MeleeEnemy.cpp" />
+    <ClCompile Include="RangedEnemy.cpp" />
     <ClCompile Include="Sapling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="MeleeEnemy.h" />
+    <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Sapling.h" />
+    <ClInclude Include="ClassType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

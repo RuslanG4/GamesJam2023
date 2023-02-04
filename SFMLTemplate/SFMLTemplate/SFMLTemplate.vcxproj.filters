@@ -13,29 +13,68 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{4bc1d02b-8045-4f1d-a0a8-8d31a32cf127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Saplings">
+      <UniqueIdentifier>{26df822d-3422-46c7-868d-bdf6269db510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{dd64af9d-a342-4e9c-a6f8-54e7e4b40ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{4225e89e-7b7f-4402-b019-2b778d54eedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sapling">
+      <UniqueIdentifier>{032d08f0-67ae-43f7-a62b-a13100a4a172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{80859c6a-cb4b-4834-ac27-2b9e02ef0477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Base.cpp">
+      <Filter>Source Files\Sapling</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Sapling.cpp">
+      <Filter>Source Files\Sapling</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Base.cpp">
+    <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h">
+      <Filter>Header Files\Saplings</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Sapling.h">
+      <Filter>Header Files\Saplings</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassType.h">
+      <Filter>Header Files\Saplings</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Base.h">
+    <ClInclude Include="MeleeEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
