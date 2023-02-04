@@ -49,6 +49,8 @@ private:
 
 	Sapling *sapling;
 
+	bool fBox1 = false;
+
 	sf::Vector2f positions[6]
 	{
 		{200,100},
