@@ -190,6 +190,7 @@ void Game::processMouse(sf::Event t_event)
 		}
 	}
 
+
 	//Enemy boxes
 	//Enemy Fighters Coloum 1 & process rows
 	if (t_event.mouseButton.x > E_COL_LEFT && t_event.mouseButton.x < E_COL_RIGHT)
@@ -261,6 +262,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	attack();
 	checkGrids();
+	checkBounds();
 
 
 	if (heldMouse)
@@ -314,6 +316,22 @@ void Game::movingSprite()
 	sapling[selectedSapling]->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
 }
 
+void Game::checkBounds()
+{
+	for (int i = 0; i < currentSaplings; i++)
+	{
+		if (sapling[i]->getPos().x > 600 || sapling[i]->getPos().x < 200)
+		{
+			sapling[i]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
+		}
+		if (sapling[i]->getPos().y < 100 || sapling[i]->getPos().y > 700)
+		{
+			sapling[i]->setPosition(sf::Vector2f(positions[i].x + 100, positions[i].y + 100));
+		}
+	}
+	
+}
+
 void Game::attack()
 {
 	pressedAttack = false;
@@ -331,6 +349,8 @@ void Game::attack()
 		}
 	}
 }
+
+
 
 /// <summary>
 /// creates warriors and rangers
