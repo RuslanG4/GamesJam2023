@@ -57,6 +57,7 @@ private:
 	int currentSaplings = 3;
 
 	Sapling *sapling;
+	int selectedSapling = 0;
 
 	bool fBox1 = false;
 

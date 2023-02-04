@@ -105,16 +105,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_1_TOP && t_event.mouseButton.y < F_ROW_1_BOTTOM)
 		{
 			std::cout << "Pressed friendly archer 1 box" << std::endl;
+			selectedSapling = 0;
 			fBox1 = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_1_TOP + 200 && t_event.mouseButton.y < F_ROW_1_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
+			selectedSapling = 2;
 			fBox1 = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_1_TOP + 400 && t_event.mouseButton.y < F_ROW_1_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
+			selectedSapling = 4;
 			fBox1 = true;
 		}
 	}
@@ -124,16 +127,19 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_1_TOP && t_event.mouseButton.y < F_ROW_1_BOTTOM)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
+			selectedSapling = 1;
 			fBox1 = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_1_TOP + 200 && t_event.mouseButton.y < F_ROW_1_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
+			selectedSapling = 3;
 			fBox1 = true;
 		}
 		if (t_event.mouseButton.y > F_ROW_1_TOP + 400 && t_event.mouseButton.y < F_ROW_1_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
+			selectedSapling = 5;
 			fBox1 = true;
 		}
 	}
@@ -155,6 +161,11 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	setType();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		sapling->attack(*enemy[0]);
+	}
 
 }
 /// <summary>
