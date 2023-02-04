@@ -1,6 +1,6 @@
 #include "RangedEnemy.h"
 
-void RangedEnemy::update()
+void RangedEnemy::update(Sapling& t_sap)
 {
 }
 

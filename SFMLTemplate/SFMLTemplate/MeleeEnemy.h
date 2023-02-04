@@ -4,7 +4,7 @@
 class MeleeEnemy : public Enemy
 {
 public:
-	void update();
+	void update(Sapling& t_sap);
 	void render(sf::RenderWindow& win);
 	void init();
 	void setPosition(sf::Vector2f loc) { m_shape.setPosition(loc); };
@@ -13,6 +13,8 @@ public:
 	sf::Vector2f getPos() { return m_shape.getPosition(); };
 	void takeDamage(int t_damage);
 	int getHealth() { return health; };
+
+	void attack(Sapling& t_sap);
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 	Type m_type = Type::NONE;

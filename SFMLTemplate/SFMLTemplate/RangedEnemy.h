@@ -4,7 +4,7 @@
 class RangedEnemy : public Enemy
 {
 public:
-	void update();
+	void update(Sapling& t_sap);
 	void render(sf::RenderWindow& win);
 	void init();
 	void setPosition(sf::Vector2f loc) { m_shape.setPosition(loc); };
