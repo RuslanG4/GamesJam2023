@@ -56,19 +56,13 @@ void Base::takeDamage(int t_damage)
 void Base::attack(Enemy& t_enemy)
 {
 	t_enemy.takeDamage(damage);
-	hasAttacked = true;
+	hasTakenAction = true;
 }
 
 void Base::heal(Sapling& t_sap)
 {
 	t_sap.getHeal();
+	hasTakenAction = true;
 }
 
-void Base::getHeal()
-{
-	health += 10;
-	if (health > maxHealth)
-	{
-		health = maxHealth;
-	}
-}
+

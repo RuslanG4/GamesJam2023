@@ -84,6 +84,10 @@ private:
 	bool pressedAttack = false;
 	void attack();
 
+	//checks player heals
+	bool pressedHeal = false;
+	void heal();
+
 	//spalings
 	int currentSaplings = 3;
 	Sapling *sapling[MAX_SPROUTS];

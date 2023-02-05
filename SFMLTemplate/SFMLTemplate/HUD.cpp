@@ -30,6 +30,12 @@ void HUD::getAction(int t_num, int t_num2, int num3)
 		std::to_string(num3) + " damage!");
 }
 
+void HUD::getHealAction(int t_num, int t_num2, int num3)
+{
+	m_text.setString(" Sapling number " + std::to_string(t_num + 1) + " heals friendly number " + std::to_string(t_num2) + "\n" +
+		std::to_string(num3) + "heal!");
+}
+
 void HUD::getEnemyAction(int t_num, int t_num2, int num3)
 {
 	m_text.setString(" Enemy number " + std::to_string(t_num+1) + " attacks Sapling number " + std::to_string(t_num2 + 1) + "\n "

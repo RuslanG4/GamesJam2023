@@ -264,6 +264,11 @@ void Game::processMouseRelease(sf::Event t_event)
 	const int ATTACK_LEFT = 900;
 	const int ATTACK_RIGHT = 1000;
 
+	const int HEAL_TOP = 200;
+	const int HEAL_BOTTOM= 280;
+	const int HEAL_LEFT = 800;
+	const int HEAL_RIGHT = 880;
+
 
 	heldMouse = false;
 	std::cout << "enemy selected : " + std::to_string(enemySelected);
@@ -289,6 +294,15 @@ void Game::processMouseRelease(sf::Event t_event)
 			myHud.endTurn();
 			m_gamestate = GameState::ENEMYTURN;
 			attackingEnemy = currentEnemies - 1;//currentEnemies;
+		}
+	}
+	//Heal Sapling
+	if (t_event.mouseButton.x > HEAL_LEFT && t_event.mouseButton.x < HEAL_RIGHT)
+	{
+		if (t_event.mouseButton.y > HEAL_TOP && t_event.mouseButton.y < HEAL_BOTTOM)
+		{
+			std::cout << "Heal" << std::endl;
+			heal();
 		}
 	}
 }
@@ -542,13 +556,22 @@ void Game::setUpSprites()
 /// </summary>
 void Game::attack()
 {
-
 	if (!sapling[selectedSapling]->getAttack())
 	{
 		sapling[selectedSapling]->attack(*enemy[enemySelected]);
 		myHud.getAction(selectedSapling, enemySelected,sapling[selectedSapling]->getDamgage());
 	}
-
+}
+/// <summary>
+/// players heals sapling
+/// </summary>
+void Game::heal()
+{
+	if (!sapling[selectedSapling]->getAttack())
+	{
+		sapling[selectedSapling]->heal(*sapling[healSelection]);
+		//myHud.getHealAction(selectedSapling, selectedSapling, sapling[selectedSapling]->getHeal());
+	}
 }
 /// <summary>
 /// creates warriors and rangers

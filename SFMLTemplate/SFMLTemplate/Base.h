@@ -13,15 +13,15 @@ public:
 	sf::Vector2f getPos() { return m_sprite.getPosition(); };
 	void takeDamage(int t_damage);
 	void attack(Enemy& t_enemy);
-	bool getAttack() { return hasAttacked; };
+	bool getAttack() { return hasTakenAction; };
 
 	void setGridNumber(int t_number) { gridNum = t_number; };
 	int checkGridNumber() { return gridNum; };
 	int getHealth() { return health; };
-	void resetAttacks() { hasAttacked = false; }
+	void resetAttacks() { hasTakenAction = false; }
 	int getDamgage() { return damage; };
 	void heal(Sapling& t_sap);
-	void getHeal();
+	void getHeal() { health +=15; };
 	void kill() {isDead = true;}
 	bool getAlive() { return isDead; };
 
@@ -31,7 +31,7 @@ private:
 	sf::Texture m_texture;
 
 	Type m_type = Type::NONE;
-	bool hasAttacked = false;
+	bool hasTakenAction = false;
 	int health = 20;
 	int maxHealth;
 	int damage = 20;
