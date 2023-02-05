@@ -18,6 +18,8 @@ public:
 	void writeHealth(int enemy);
 	void boxSelected(){ m_shape.setOutlineColor(sf::Color::Red); }
 	void boxDeSelected() { m_shape.setOutlineColor(sf::Color::Black); }
+
+	void reset();
 private:
 	sf::RectangleShape m_shape;
 	bool occupied = false;

@@ -15,7 +15,7 @@ void MeleeEnemy::init()
 	/*m_shape.setFillColor(sf::Color::Red);
 	m_shape.setOrigin(16, 16);*/
 
-	if (!m_texture.loadFromFile("ASSETS\\IMAGES\\redMapleIdel.png"))
+	if (!m_texture.loadFromFile("ASSETS\\IMAGES\\Hoplite.png"))
 	{
 		std::cout << "error loading red maple";
 	}

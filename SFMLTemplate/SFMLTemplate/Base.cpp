@@ -16,7 +16,7 @@ void Base::init()
 	{
 		std::cout << "error loading red maple";
 	}
-	if (!m_textureRanged.loadFromFile("ASSETS\\IMAGES\\Cedarion.png"))
+	if (!m_textureRanged.loadFromFile("ASSETS\\IMAGES\\Cedarion_Lined.png"))
 	{
 		std::cout << "error loading cedarion";
 	}
@@ -61,8 +61,12 @@ void Base::attack(Enemy& t_enemy)
 
 void Base::heal(Sapling& t_sap)
 {
+
 	t_sap.getHeal();
 	hasTakenAction = true;
+
+	//t_sap.getHeal();
+
 }
 
 

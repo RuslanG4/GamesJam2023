@@ -27,6 +27,8 @@ public:
 	virtual void getHeal() = 0;
 	virtual void kill()=0;
 	virtual bool getAlive() = 0;
+
+	virtual void setAttacked() = 0;
 private:
 
 };

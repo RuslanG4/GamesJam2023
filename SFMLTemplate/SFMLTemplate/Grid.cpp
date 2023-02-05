@@ -9,7 +9,7 @@ void Grid::render(sf::RenderWindow& win)
 void Grid::init(sf::Font& font)
 {
 	m_shape.setSize(sf::Vector2f(200, 200));
-	m_shape.setFillColor(sf::Color::Transparent);
+	m_shape.setFillColor(sf::Color(0, 0, 0, 132));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(3);
 
@@ -27,4 +27,11 @@ void Grid::writeHealth(int enemy)
 		health = 0;
 	}
 	m_text.setString(std::to_string(health));
+}
+
+void Grid::reset()
+{
+	occupied = false;
+	enemyNumber = 8;
+	m_text.setString(std::to_string(0));
 }
