@@ -948,6 +948,14 @@ void Game::resetVars()
 
 	hasMoved = false;
 	heldMouse = false;
+	pressedAttack = false;
+	pressedBox = false;
+	heldMouse = false;
+	startLetter = false;
+	hasSpawned = false;
+	canAttack = true;
+	enemyLetterSpawned = false;
+	enemyStartLetter = false;
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -981,7 +989,14 @@ void Game::resetVarsForChallenge()
 
 	hasMoved = false;
 	heldMouse = false;
-
+	pressedAttack = false;
+	pressedBox = false;
+	heldMouse = false;
+	startLetter = false;
+	hasSpawned = false;
+	canAttack = true;
+	enemyLetterSpawned = false;
+	enemyStartLetter = false;
 	for (int i = 0; i < 6; i++)
 	{
 		myGrid[i].reset();

@@ -99,7 +99,7 @@ private:
 	void attack();
 
 	//spalings
-	int currentSaplings = 2;
+	int currentSaplings = 3;
 	Sapling *sapling[MAX_SPROUTS];
 	void createRoots();
 
@@ -143,14 +143,14 @@ private:
 
 	//Enemy varialbes
 	int randomPos = 0;
-	int currentEnemies = 3;
+	int currentEnemies = 4;
 	Enemy* enemy[MAX_ENEMIES];
 
 	void createEnemies();
 	void enemyMove();
 	void enemyAttack();
 	void enemyHeal();
-	int attackingEnemy = 3;
+	int attackingEnemy = 4;
 	int enemyMoveTimer = 0;
 	int randomEnemyNumber = 0;
 	int numOfDeadEnemies = 0;
