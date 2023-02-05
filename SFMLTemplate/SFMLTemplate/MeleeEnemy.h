@@ -6,21 +6,24 @@
 class MeleeEnemy : public Enemy
 {
 public:
-	void update();
-	void render(sf::RenderWindow& win);
-	void init();
-	void setPosition(sf::Vector2f loc) { m_sprite.setPosition(loc); };
-	Type getType() { return m_type; }
-	void setType(Type t_type) { m_type = t_type; };
-	sf::Vector2f getPos() { return m_sprite.getPosition(); };
+	void update(); //update any enemy funciton
+	void render(sf::RenderWindow& win); //draws to screen
+	void init(); //initialisation
+	void setPosition(sf::Vector2f loc) { m_sprite.setPosition(loc); }; //sets position of sprite
 
-	void takeDamage(int t_damage);
+
+	//GETTERS
+	sf::Vector2f getPos() { return m_sprite.getPosition(); };
+	Type getType() { return m_type; } //gets type pf player
+	bool checkDead() { return isDead; };
 	int getHealth() { return health; };
 	int getDamage() { return damage; };
-
-	bool checkDead() { return isDead; };
-
+	//SETTERS
 	void kill() { isDead = true; }
+	void setType(Type t_type) { m_type = t_type; }; //sets type on player
+
+	//TAKING DAMAGE
+	void takeDamage(int t_damage);
 private:
 	sf::RectangleShape m_shape{ sf::Vector2f(32,32) };
 

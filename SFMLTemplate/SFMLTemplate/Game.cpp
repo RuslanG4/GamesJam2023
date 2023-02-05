@@ -10,6 +10,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
+	setUpSprites();
 	setupFont();
 	createRoots();
 	createEnemies();
@@ -394,7 +395,9 @@ void Game::render()
 	m_window.draw(m_text);
 	m_window.display();
 }
-
+/// <summary>
+/// sets up text and grids
+/// </summary>
 void Game::setupFontAndText()
 {
 	for (int i = 0; i < 6 ; i++)
@@ -405,8 +408,69 @@ void Game::setupFontAndText()
 		enemyGrid[i].init(m_arialFont);
 	}
 
-	attackButton.setSize(sf::Vector2f(200, 50));
-	attackButton.setPosition(820, 330);
+	myHud.init(m_arialFont);
+
+	m_selectionEnemy.setSize(sf::Vector2f(200, 200));
+	m_selectionEnemy.setOutlineColor(sf::Color::Red);
+	m_selectionEnemy.setOutlineThickness(5);
+	m_selectionEnemy.setFillColor(sf::Color::Transparent);
+	m_selectionEnemy.setPosition(offScreenPos);
+
+	m_selectionSapling.setSize(sf::Vector2f(200, 200));
+	m_selectionSapling.setOutlineColor(sf::Color::Red);
+	m_selectionSapling.setOutlineThickness(5);
+	m_selectionSapling.setFillColor(sf::Color::Transparent);
+	m_selectionSapling.setPosition(offScreenPos);
+
+	m_selectionHeal.setSize(sf::Vector2f(200, 200));
+	m_selectionHeal.setOutlineColor(sf::Color::Blue);
+	m_selectionHeal.setOutlineThickness(5);
+	m_selectionHeal.setFillColor(sf::Color::Transparent);
+	m_selectionHeal.setPosition(offScreenPos);
+}
+/// <summary>
+/// moves sprties along with mouse pos
+/// </summary>
+void Game::movingSprite()
+{
+	sapling[selectedSapling]->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
+}
+/// <summary>
+/// keeps sprites withing their grids
+/// </summary>
+void Game::checkBounds()
+{
+
+	if (sapling[selectedSapling]->getPos().x > 600 || sapling[selectedSapling]->getPos().x < 200)
+	{
+		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
+	}
+	if (sapling[selectedSapling]->getPos().y < 100 || sapling[selectedSapling]->getPos().y > 700)
+	{
+		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
+	}
+
+	
+}
+/// <summary>
+/// sets up font and string for damage
+/// </summary>
+void Game::setupFont()
+{
+	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
+	{
+		std::cout << "error loading font";
+	}
+	m_text.setFont(m_arialFont);
+	m_text.setOutlineColor(sf::Color::Red);
+	m_text.setOutlineThickness(4);
+	m_text.setCharacterSize(50U);
+}
+/// <summary>
+/// sets up sprites
+/// </summary>
+void Game::setUpSprites()
+{
 	//Sprite setups
 	if (!m_attackTexture.loadFromFile("ASSETS\\IMAGES\\attack1.png"))
 	{
@@ -449,60 +513,10 @@ void Game::setupFontAndText()
 	m_turnOverSprite.setTexture(m_turnOverTexture);
 	m_turnOverSprite.setPosition(800, 400);
 	m_turnOverSprite.setScale(5, 5);
-
-	myHud.init(m_arialFont);
-
-	m_selectionEnemy.setSize(sf::Vector2f(200, 200));
-	m_selectionEnemy.setOutlineColor(sf::Color::Red);
-	m_selectionEnemy.setOutlineThickness(5);
-	m_selectionEnemy.setFillColor(sf::Color::Transparent);
-	m_selectionEnemy.setPosition(offScreenPos);
-
-	m_selectionSapling.setSize(sf::Vector2f(200, 200));
-	m_selectionSapling.setOutlineColor(sf::Color::Red);
-	m_selectionSapling.setOutlineThickness(5);
-	m_selectionSapling.setFillColor(sf::Color::Transparent);
-	m_selectionSapling.setPosition(offScreenPos);
-
-	m_selectionHeal.setSize(sf::Vector2f(200, 200));
-	m_selectionHeal.setOutlineColor(sf::Color::Blue);
-	m_selectionHeal.setOutlineThickness(5);
-	m_selectionHeal.setFillColor(sf::Color::Transparent);
-	m_selectionHeal.setPosition(offScreenPos);
 }
-
-void Game::movingSprite()
-{
-	sapling[selectedSapling]->setPosition(sf::Vector2f(sf::Mouse::getPosition(m_window)));
-}
-
-void Game::checkBounds()
-{
-
-	if (sapling[selectedSapling]->getPos().x > 600 || sapling[selectedSapling]->getPos().x < 200)
-	{
-		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
-	}
-	if (sapling[selectedSapling]->getPos().y < 100 || sapling[selectedSapling]->getPos().y > 700)
-	{
-		sapling[selectedSapling]->setPosition(sf::Vector2f(positions[sapling[selectedSapling]->checkGridNumber()].x + 100, positions[sapling[selectedSapling]->checkGridNumber()].y + 100));
-	}
-
-	
-}
-
-void Game::setupFont()
-{
-	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
-	{
-		std::cout << "error loading font";
-	}
-	m_text.setFont(m_arialFont);
-	m_text.setOutlineColor(sf::Color::Red);
-	m_text.setOutlineThickness(4);
-	m_text.setCharacterSize(50U);
-}
-
+/// <summary>
+/// player attacking enemy function
+/// </summary>
 void Game::attack()
 {
 
@@ -556,7 +570,9 @@ void Game::createRoots()
 	}
 
 }
-
+/// <summary>
+/// ai for enemy decisions
+/// </summary>
 void Game::enemyMove()
 {
 
@@ -592,7 +608,9 @@ void Game::enemyMove()
 		}
 	}
 }
-
+/// <summary>
+/// enemy attacking function
+/// </summary>
 void Game::enemyAttack()
 {
 	int random = rand() % currentSaplings;
@@ -611,11 +629,16 @@ void Game::enemyAttack()
 	attackingEnemy--;
 	
 }
+/// <summary>
+/// enemy healing function
+/// </summary>
 void Game::enemyHeal()
 {
 	//int random = rand() % currentEnemies;
 }
-
+/// <summary>
+/// displaces enemy at 0 hp
+/// </summary>
 void Game::killEnemy()
 {
 	for (int i = 0; i < currentEnemies; i++)
@@ -626,7 +649,9 @@ void Game::killEnemy()
 		}
 	}
 }
-
+/// <summary>
+/// hover over icons makes them fade, lets player see where they are
+/// </summary>
 void Game::mousePos()
 {
 	sf::Vector2i mousePs = sf::Mouse::getPosition(m_window);
@@ -645,7 +670,9 @@ void Game::mousePos()
 
 	
 }
-
+/// <summary>
+/// jumps damage text when dealing damage
+/// </summary>
 void Game::damageNumberAnimate()
 {
 	sf::Vector2f pos{ m_text.getPosition() };
@@ -666,7 +693,9 @@ void Game::damageNumberAnimate()
 		startLetter = false;
 	}
 }
-
+/// <summary>
+/// checks grids when moving around player sprites
+/// </summary>
 void Game::checkGrids()
 {
 	for (int i = 0; i < 6; i++)
@@ -691,7 +720,9 @@ void Game::checkGrids()
 		}
 	}
 }
-
+/// <summary>
+/// creates enemies
+/// </summary>
 void Game::createEnemies()
 {
 	for (int i = 0; i < currentEnemies; i++)

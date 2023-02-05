@@ -67,7 +67,7 @@ private:
 	sf::RectangleShape m_selectionHeal;
 	sf::Vector2f offScreenPos{ -300,-300 };
 
-
+	//SPRITES
 	sf::Sprite m_attackSprite;
 	sf::Texture m_attackTexture;
 	sf::Sprite m_healSprite;
@@ -78,10 +78,10 @@ private:
 	sf::Texture m_debuffTexture;
 	sf::Sprite m_turnOverSprite;
 	sf::Texture m_turnOverTexture;
+	void setUpSprites();
 
 	sf::Vector2f mouseLocation = {};
 
-	sf::RectangleShape attackButton;
 	bool pressedAttack = false;
 	void attack();
 
