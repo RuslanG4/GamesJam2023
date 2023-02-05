@@ -16,7 +16,7 @@ void Base::init()
 	{
 		std::cout << "error loading red maple";
 	}
-	if (!m_textureRanged.loadFromFile("ASSETS\\IMAGES\\Cedarion.png"))
+	if (!m_textureRanged.loadFromFile("ASSETS\\IMAGES\\Cedarion_Lined.png"))
 	{
 		std::cout << "error loading cedarion";
 	}

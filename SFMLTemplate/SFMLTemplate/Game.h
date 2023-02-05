@@ -73,6 +73,9 @@ private:
 	sf::RectangleShape m_selectionSapling;
 	sf::RectangleShape m_selectionEnemy;
 	sf::RectangleShape m_selectionHeal;
+
+	sf::RectangleShape m_iconBG;
+
 	sf::Vector2f offScreenPos{ -300,-300 };
 
 	//SPRITES
@@ -86,6 +89,8 @@ private:
 	sf::Texture m_debuffTexture;
 	sf::Sprite m_turnOverSprite;
 	sf::Texture m_turnOverTexture;
+	sf::Sprite m_bgSprite;
+	sf::Texture m_bgTexture;
 	void setUpSprites();
 
 	//checks players attack
@@ -174,6 +179,8 @@ private:
 
 	void deleteEntites();
 	void resetVars();
+
+	bool canAttack = true;
 
 };
 

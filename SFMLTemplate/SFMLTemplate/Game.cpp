@@ -278,7 +278,11 @@ void Game::processMouseRelease(sf::Event t_event)
 			{
 				m_text.setPosition(m_selectionEnemy.getPosition().x + 100, m_selectionEnemy.getPosition().y + 100);
 			}
-			attack();
+			if (enemySelected!=8)
+			{
+				attack();
+			}
+			
 			startLetter = true;
 			hasMoved = true;
 			
@@ -319,6 +323,10 @@ void Game::update(sf::Time t_deltaTime)
 			if (enemyGrid[i].checkOccupied())
 			{
 				enemyGrid[i].writeHealth(enemy[enemyGrid[i].enemyNumberCheck()]->getHealth());
+			}
+			if (!enemyGrid[i].checkOccupied())
+			{
+				enemyGrid[i].writeHealth(0);
 			}
 			if (myGrid[i].checkOccupied())
 			{
@@ -403,23 +411,26 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Green);
+	m_window.draw(m_bgSprite);
 
 	if (m_gamestate == GameState::PLAYERTURN || m_gamestate == GameState::ENEMYTURN)
 	{
-		for (int i = 0; i < currentEnemies; i++)
-		{
-			enemy[i]->render(m_window);
-		}
+	
 
 		for (int i = 0; i < 6; i++)
 		{
 			myGrid[i].render(m_window);
 			enemyGrid[i].render(m_window);
 		}
+		for (int i = 0; i < currentEnemies; i++)
+		{
+			enemy[i]->render(m_window);
+		}
 		for (int i = 0; i < currentSaplings; i++)
 		{
 			sapling[i]->render(m_window);
 		}
+		m_window.draw(m_iconBG);
 		m_window.draw(m_attackSprite);
 		m_window.draw(m_healSprite);
 		m_window.draw(m_buffSprite);
@@ -478,6 +489,10 @@ void Game::setupFontAndText()
 	m_selectionHeal.setOutlineThickness(5);
 	m_selectionHeal.setFillColor(sf::Color::Transparent);
 	m_selectionHeal.setPosition(offScreenPos);
+
+	m_iconBG.setSize(sf::Vector2f(400, 400));
+	m_iconBG.setFillColor(sf::Color(0, 0, 0, 132));
+	m_iconBG.setPosition(750, 150);
 }
 /// <summary>
 /// moves sprties along with mouse pos
@@ -508,7 +523,7 @@ void Game::checkBounds()
 /// </summary>
 void Game::setupFont()
 {
-	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\arial.ttf"))
+	if (!m_arialFont.loadFromFile("ASSETS\\FONTS\\pixel.ttf"))
 	{
 		std::cout << "error loading font";
 	}
@@ -571,6 +586,14 @@ void Game::setUpSprites()
 	m_turnOverSprite.setTexture(m_turnOverTexture);
 	m_turnOverSprite.setPosition(800, 400);
 	m_turnOverSprite.setScale(5, 5);
+
+	if (!m_bgTexture.loadFromFile("ASSETS\\IMAGES\\Background.png"))
+	{
+		std::cout << "buff not loading" << std::endl;
+	}
+	m_bgSprite.setTexture(m_bgTexture);
+	m_bgSprite.setPosition(0, 0);
+	m_bgSprite.setScale(5, 5);
 }
 /// <summary>
 /// player attacking enemy function
