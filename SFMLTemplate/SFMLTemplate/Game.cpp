@@ -7,7 +7,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 1420U, 1080U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1920U, 1080U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
 	music();
@@ -338,10 +338,6 @@ void Game::update(sf::Time t_deltaTime)
 			}
 		}
 		killEnemy();
-		if (startLetter)
-		{
-			damageNumberAnimate();
-		}
 	}
 	
 	if (m_gamestate == GameState::ENEMYTURN)
@@ -382,7 +378,10 @@ void Game::update(sf::Time t_deltaTime)
 			sapling[i]->setPosition(offScreenPos);
 		}
 	}
-
+	if (startLetter)
+	{
+		damageNumberAnimate();
+	}
 
 	checkGameOver();
 	checkGameWin();
@@ -403,6 +402,15 @@ void Game::update(sf::Time t_deltaTime)
 	if (m_gamestate == GameState::TRANSITION)
 	{
 		myTransitionScreen.update();
+		if (myTransitionScreen.getRestart())
+		{
+			deleteEntites();
+			resetVarsForChallenge();
+			createEnemies();
+			createRoots();
+			myTransitionScreen.resetRestart();
+			m_gamestate = GameState::PLAYERTURN;
+		}
 	}
 }
 /// <summary>
@@ -926,6 +934,39 @@ void Game::deleteEntites()
 /// </summary>
 void Game::resetVars()
 {
+	m_text.setPosition(offScreenPos);
+	m_enemyText.setPosition(offScreenPos);
+
+	attackingEnemy = currentEnemies;
+	enemyMoveTimer = 0;
+	randomEnemyNumber = 0;
+	numOfDeadEnemies = 0;
+
+	selectedSapling = 0;
+	enemySelected = 0;
+	healSelection = 0;
+
+	hasMoved = false;
+	heldMouse = false;
+
+	for (int i = 0; i < 6; i++)
+	{
+		myGrid[i].reset();
+		enemyGrid[i].reset();
+	}
+}
+void Game::resetVarsForChallenge()
+{
+	currentEnemies++;
+	if (currentEnemies >= 6)
+	{
+		currentEnemies = 6;
+	}
+	if (currentSaplings >= 6)
+	{
+		currentSaplings = 6;
+	}
+	currentSaplings++;
 	m_text.setPosition(offScreenPos);
 	m_enemyText.setPosition(offScreenPos);
 

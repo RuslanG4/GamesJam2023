@@ -99,7 +99,7 @@ private:
 	void attack();
 
 	//spalings
-	int currentSaplings = 3;
+	int currentSaplings = 2;
 	Sapling *sapling[MAX_SPROUTS];
 	void createRoots();
 
@@ -180,6 +180,7 @@ private:
 
 	void deleteEntites();
 	void resetVars();
+	void resetVarsForChallenge();
 
 	bool canAttack = true;
 
