@@ -288,7 +288,7 @@ void Game::processMouseRelease(sf::Event t_event)
 			
 		}
 	}
-	if (t_event.mouseButton.x > 800 && t_event.mouseButton.x < 880)
+	if (t_event.mouseButton.x > 900 && t_event.mouseButton.x < 980)
 	{
 		if (t_event.mouseButton.y > 400 && t_event.mouseButton.y < 480)
 		{
@@ -432,9 +432,9 @@ void Game::render()
 		}
 		m_window.draw(m_iconBG);
 		m_window.draw(m_attackSprite);
-		m_window.draw(m_healSprite);
-		m_window.draw(m_buffSprite);
-		m_window.draw(m_debuffSprite);
+		//m_window.draw(m_healSprite);
+		//m_window.draw(m_buffSprite);
+		//m_window.draw(m_debuffSprite);
 		m_window.draw(m_turnOverSprite);
 		myHud.render(m_window);
 		m_window.draw(m_selectionSapling);
@@ -584,7 +584,7 @@ void Game::setUpSprites()
 		std::cout << "buff not loading" << std::endl;
 	}
 	m_turnOverSprite.setTexture(m_turnOverTexture);
-	m_turnOverSprite.setPosition(800, 400);
+	m_turnOverSprite.setPosition(900, 400);
 	m_turnOverSprite.setScale(5, 5);
 
 	if (!m_bgTexture.loadFromFile("ASSETS\\IMAGES\\Background.png"))
