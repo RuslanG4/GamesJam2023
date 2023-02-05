@@ -7,7 +7,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1420U, 1080U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
 	music();
