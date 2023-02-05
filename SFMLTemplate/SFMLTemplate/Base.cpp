@@ -61,7 +61,7 @@ void Base::attack(Enemy& t_enemy)
 
 void Base::heal(Sapling& t_sap)
 {
-	t_sap.getHeal();
+	//t_sap.getHeal();
 }
 
 void Base::getHeal()

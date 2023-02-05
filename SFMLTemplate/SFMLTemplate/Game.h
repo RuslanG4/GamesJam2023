@@ -22,6 +22,8 @@
 #include"Grid.h"
 #include"TurnState.h"
 #include"HUD.h"
+#include"GameOverScreen.h"
+#include"Transition.h"
 
 const int MAX_SPROUTS = 6;
 const int MAX_ENEMIES = 6;
@@ -45,7 +47,11 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 	void setupFontAndText();
+
+	//moves at start of battle
 	void movingSprite();
+	bool hasMoved = false;
+
 	void checkBounds();
 
 	bool m_exitGame; // control exiting game
@@ -61,6 +67,8 @@ private:
 	Grid enemyGrid[6];
 
 	HUD myHud;
+	GameOverScreen gameOverScreen;
+	Transition myTransitionScreen;
 
 	sf::RectangleShape m_selectionSapling;
 	sf::RectangleShape m_selectionEnemy;
@@ -162,6 +170,10 @@ private:
 	//checking for gameover
 	int numOfDeadSaplings = 0;
 	void checkGameOver();
+	void checkGameWin();
+
+	void deleteEntites();
+	void resetVars();
 
 };
 

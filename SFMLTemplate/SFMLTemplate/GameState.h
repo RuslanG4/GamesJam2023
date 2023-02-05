@@ -5,5 +5,7 @@ enum class GameState
 {
 	NONE,
 	PLAYERTURN,
-	ENEMYTURN
+	ENEMYTURN,
+	GAMEOVER,
+	TRANSITION
 };

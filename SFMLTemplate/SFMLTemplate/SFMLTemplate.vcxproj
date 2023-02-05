@@ -132,17 +132,20 @@
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="RangedEnemy.cpp" />
     <ClCompile Include="Sapling.cpp" />
+    <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HUD.h" />
@@ -150,6 +153,7 @@
     <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Sapling.h" />
     <ClInclude Include="ClassType.h" />
+    <ClInclude Include="Transition.h" />
     <ClInclude Include="TurnState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

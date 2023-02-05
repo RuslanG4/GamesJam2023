@@ -24,6 +24,7 @@ public:
 	void getHeal();
 	void kill() {isDead = true;}
 	bool getAlive() { return isDead; };
+	void setAttacked() { hasAttacked = true; };
 
 private:
 	sf::Sprite m_sprite;

@@ -280,6 +280,8 @@ void Game::processMouseRelease(sf::Event t_event)
 			}
 			attack();
 			startLetter = true;
+			hasMoved = true;
+			
 		}
 	}
 	if (t_event.mouseButton.x > 800 && t_event.mouseButton.x < 880)
@@ -308,7 +310,7 @@ void Game::update(sf::Time t_deltaTime)
 		mousePos();
 		checkGrids();
 		checkBounds();
-		if (heldMouse)
+		if (heldMouse && !hasMoved)
 		{
 			movingSprite();
 		}
@@ -373,8 +375,27 @@ void Game::update(sf::Time t_deltaTime)
 		}
 	}
 
-	checkGameOver();
 
+	checkGameOver();
+	checkGameWin();
+
+	if (m_gamestate == GameState::GAMEOVER)
+	{
+		gameOverScreen.update();
+		if (gameOverScreen.getRestart())
+		{
+			deleteEntites();
+			resetVars();
+			createEnemies();
+			createRoots();
+			m_gamestate = GameState::PLAYERTURN;
+		}
+	}
+
+	if (m_gamestate == GameState::TRANSITION)
+	{
+		myTransitionScreen.update();
+	}
 }
 /// <summary>
 /// draw the frame and then switch buffers
@@ -383,32 +404,43 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Green);
 
-	for (int i = 0; i < currentEnemies; i++)
+	if (m_gamestate == GameState::PLAYERTURN || m_gamestate == GameState::ENEMYTURN)
 	{
-		enemy[i]->render(m_window);
-	}
-	
-	for (int i = 0; i < 6; i++)
-	{
-		myGrid[i].render(m_window);
-		enemyGrid[i].render(m_window);
-	}
-	for (int i = 0; i < currentSaplings; i++)
-	{
-		sapling[i]->render(m_window);
-	}
-	m_window.draw(m_attackSprite);
-	m_window.draw(m_healSprite);
-	m_window.draw(m_buffSprite);
-	m_window.draw(m_debuffSprite);
-	m_window.draw(m_turnOverSprite);
-	myHud.render(m_window);
-	m_window.draw(m_selectionSapling);
-	m_window.draw(m_selectionEnemy);
-	m_window.draw(m_selectionHeal);
+		for (int i = 0; i < currentEnemies; i++)
+		{
+			enemy[i]->render(m_window);
+		}
 
-	m_window.draw(m_text);
-	m_window.draw(m_enemyText);
+		for (int i = 0; i < 6; i++)
+		{
+			myGrid[i].render(m_window);
+			enemyGrid[i].render(m_window);
+		}
+		for (int i = 0; i < currentSaplings; i++)
+		{
+			sapling[i]->render(m_window);
+		}
+		m_window.draw(m_attackSprite);
+		m_window.draw(m_healSprite);
+		m_window.draw(m_buffSprite);
+		m_window.draw(m_debuffSprite);
+		m_window.draw(m_turnOverSprite);
+		myHud.render(m_window);
+		m_window.draw(m_selectionSapling);
+		m_window.draw(m_selectionEnemy);
+		m_window.draw(m_selectionHeal);
+
+		m_window.draw(m_text);
+		m_window.draw(m_enemyText);
+	}
+	if (m_gamestate == GameState::GAMEOVER)
+	{
+		gameOverScreen.render(m_window);
+	}
+	if (m_gamestate == GameState::TRANSITION)
+	{
+		myTransitionScreen.render(m_window);
+	}
 	m_window.display();
 }
 /// <summary>
@@ -416,6 +448,7 @@ void Game::render()
 /// </summary>
 void Game::setupFontAndText()
 {
+	attackingEnemy = currentEnemies;
 	for (int i = 0; i < 6 ; i++)
 	{
 		myGrid[i].setPosition(positions[i]);
@@ -425,6 +458,8 @@ void Game::setupFontAndText()
 	}
 
 	myHud.init(m_arialFont);
+	gameOverScreen.init(m_arialFont);
+	myTransitionScreen.init(m_arialFont);
 
 	m_selectionEnemy.setSize(sf::Vector2f(200, 200));
 	m_selectionEnemy.setOutlineColor(sf::Color::Red);
@@ -542,13 +577,18 @@ void Game::setUpSprites()
 /// </summary>
 void Game::attack()
 {
-
+	for (int i = 0; i < currentSaplings; i++)
+	{
+		if (sapling[i]->getPos() == offScreenPos)
+		{
+			sapling[i]->setAttacked();
+		}
+	}
 	if (!sapling[selectedSapling]->getAttack())
 	{
 		sapling[selectedSapling]->attack(*enemy[enemySelected]);
-		myHud.getAction(selectedSapling, enemySelected,sapling[selectedSapling]->getDamgage());
+		myHud.getAction(selectedSapling, enemySelected, sapling[selectedSapling]->getDamgage());
 	}
-
 }
 /// <summary>
 /// creates warriors and rangers
@@ -729,6 +769,7 @@ void Game::damageNumberAnimate()
 	
 	if (m_text.getPosition().y > 1080)
 	{
+		m_text.setPosition(offScreenPos);
 		hasSpawned = false;
 		startLetter = false;
 	}
@@ -757,18 +798,130 @@ void Game::enemyNumbersAnimate()
 	}
 }
 
-//checks game over
+//checks game over very messy code but works
 void Game::checkGameOver()
 {
+	switch (currentSaplings)
+	{
+	case 1:
+		if (sapling[0]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	case 2:
+		if (sapling[0]->getAlive() && sapling[1]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	case 3:
+		if (sapling[0]->getAlive() && sapling[1]->getAlive() && sapling[2]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	case 4:
+		if (sapling[0]->getAlive() && sapling[1]->getAlive() && sapling[2]->getAlive() && sapling[3]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	case 5:
+		if (sapling[0]->getAlive() && sapling[1]->getAlive() && sapling[2]->getAlive() && sapling[3]->getAlive() && sapling[4]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	case 6:
+		if (sapling[0]->getAlive() && sapling[1]->getAlive() && sapling[2]->getAlive() && sapling[3]->getAlive() && sapling[4]->getAlive() && sapling[5]->getAlive())
+		{
+			m_gamestate = GameState::GAMEOVER;
+		}
+		break;
+	}
+
+}
+void Game::checkGameWin()
+{
+	switch (currentEnemies)
+	{
+	case 1:
+		if (enemy[0]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	case 2:
+		if (enemy[0]->checkDead() && enemy[1]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	case 3:
+		if (enemy[0]->checkDead() && enemy[1]->checkDead() && enemy[2]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	case 4:
+		if (enemy[0]->checkDead()&& enemy[1]->checkDead() && enemy[2]->checkDead() && enemy[3]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	case 5:
+		if (enemy[0]->checkDead() && enemy[1]->checkDead() && enemy[2]->checkDead() && enemy[3]->checkDead() && enemy[4]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	case 6:
+		if (enemy[0]->checkDead() && enemy[1]->checkDead() && enemy[2]->checkDead() && enemy[3]->checkDead() && enemy[4]->checkDead() && enemy[5]->checkDead())
+		{
+			m_gamestate = GameState::TRANSITION;
+		}
+		break;
+	}
+}
+/// <summary>
+/// deletes enemies and sprouts
+/// </summary>
+void Game::deleteEntites()
+{
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		delete enemy[i];
+	}
 	for (int i = 0; i < currentSaplings; i++)
 	{
-		if (sapling[i]->getAlive()) {
-			numOfDeadSaplings++;
-			if (numOfDeadSaplings == currentSaplings)
-			{
-				std::cout << "YOU LOSE";
-			}
-		}
+		delete sapling[i];
+	}
+}
+/// <summary>
+/// resets necessary variables for a new game
+/// </summary>
+void Game::resetVars()
+{
+	m_text.setPosition(offScreenPos);
+	m_enemyText.setPosition(offScreenPos);
+
+	attackingEnemy = currentEnemies;
+	enemyMoveTimer = 0;
+	randomEnemyNumber = 0;
+	numOfDeadEnemies = 0;
+
+	selectedSapling = 0;
+	enemySelected = 0;
+	healSelection = 0;
+
+	hasMoved = false;
+	heldMouse = false;
+
+	for (int i = 0; i < 6; i++)
+	{
+		myGrid[i].reset();
+		enemyGrid[i].reset();
 	}
 }
 /// <summary>

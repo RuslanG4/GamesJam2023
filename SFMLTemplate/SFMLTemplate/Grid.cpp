@@ -28,3 +28,10 @@ void Grid::writeHealth(int enemy)
 	}
 	m_text.setString(std::to_string(health));
 }
+
+void Grid::reset()
+{
+	occupied = false;
+	enemyNumber = 8;
+	m_text.setString(std::to_string(0));
+}
