@@ -328,6 +328,10 @@ void Game::update(sf::Time t_deltaTime)
 			}
 		}
 		killEnemy();
+		if (startLetter)
+		{
+			damageNumberAnimate();
+		}
 	}
 	
 	if (m_gamestate == GameState::ENEMYTURN)
@@ -348,6 +352,10 @@ void Game::update(sf::Time t_deltaTime)
 				myGrid[i].writeHealth(0);
 			}
 		}
+		if (enemyStartLetter)
+		{
+			enemyNumbersAnimate();
+		}
 	}
 	for (int i = 0; i < currentEnemies; i++)
 	{
@@ -356,10 +364,7 @@ void Game::update(sf::Time t_deltaTime)
 			enemy[i]->setPosition(offScreenPos);
 		}
 	}
-	if (startLetter)
-	{
-		damageNumberAnimate();
-	}
+
 }
 /// <summary>
 /// draw the frame and then switch buffers
@@ -393,6 +398,7 @@ void Game::render()
 	m_window.draw(m_selectionHeal);
 
 	m_window.draw(m_text);
+	m_window.draw(m_enemyText);
 	m_window.display();
 }
 /// <summary>
@@ -465,6 +471,13 @@ void Game::setupFont()
 	m_text.setOutlineColor(sf::Color::Red);
 	m_text.setOutlineThickness(4);
 	m_text.setCharacterSize(50U);
+	m_text.setPosition(offScreenPos);
+
+	m_enemyText.setFont(m_arialFont);
+	m_enemyText.setOutlineColor(sf::Color::Red);
+	m_enemyText.setOutlineThickness(4);
+	m_enemyText.setCharacterSize(50U);
+	m_enemyText.setPosition(offScreenPos);
 }
 /// <summary>
 /// sets up sprites
@@ -527,7 +540,6 @@ void Game::attack()
 	}
 
 }
-
 /// <summary>
 /// creates warriors and rangers
 /// </summary>
@@ -594,6 +606,7 @@ void Game::enemyMove()
 		switch (randomEnemyNumber)
 		{
 		case 0:
+			enemyStartLetter = true;
 			enemyAttack();
 			enemyMoveTimer = 0;
 			break;
@@ -617,6 +630,7 @@ void Game::enemyAttack()
 	
 	if (!enemy[attackingEnemy]->checkDead())
 	{
+		m_enemyText.setPosition(sapling[random]->getPos());
 		sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
 		myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
 		startLetter = true;
@@ -691,6 +705,29 @@ void Game::damageNumberAnimate()
 	{
 		hasSpawned = false;
 		startLetter = false;
+	}
+}
+/// <summary>
+/// animaating enemy damage numbers
+/// </summary>
+void Game::enemyNumbersAnimate()
+{
+	sf::Vector2f pos{ m_enemyText.getPosition() };
+	if (!enemyLetterSpawned)
+	{
+		textVelocity.y = -sqrtf(2.0f * 1.0f * 200);
+		enemyLetterSpawned = true;
+	}
+	m_enemyText.setString(std::to_string(enemy[attackingEnemy+1]->getDamage()));
+	textVelocity.y += 2;
+
+	pos += textVelocity;
+	m_enemyText.setPosition(pos);
+
+	if (m_enemyText.getPosition().y > 1080)
+	{
+		enemyLetterSpawned = false;
+		enemyStartLetter = false;
 	}
 }
 /// <summary>

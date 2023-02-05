@@ -55,7 +55,7 @@ private:
 	void setupFont();
 	sf::Font m_arialFont;
 	sf::Text m_text;
-	//sf::Text m_enemyText;
+	sf::Text m_enemyText;
 
 	Grid myGrid[6];
 	Grid enemyGrid[6];
@@ -80,25 +80,27 @@ private:
 	sf::Texture m_turnOverTexture;
 	void setUpSprites();
 
-	sf::Vector2f mouseLocation = {};
-
+	//checks players attack
 	bool pressedAttack = false;
 	void attack();
 
+	//spalings
 	int currentSaplings = 3;
 	Sapling *sapling[MAX_SPROUTS];
+	void createRoots();
 
+	//selections made by player
 	int selectedSapling = 0;
 	int enemySelected = 0;
 	int healSelection = 0;
 
-	TurnState m_turnstate = TurnState::PLAYERTURN;
-
-
+	//mouse presses
 	bool pressedBox = false;
 	bool heldMouse = false;
 
-
+	/// <summary>
+	/// friendly grid positions
+	/// </summary>
 	sf::Vector2f positions[6]
 	{
 		{200,100},
@@ -109,6 +111,7 @@ private:
 		{400,500}
 	};
 
+	//enemy grid positions
 	sf::Vector2f ePositions[6]
 	{
 		{1320,100},
@@ -119,17 +122,17 @@ private:
 		{1520,500}
 	};
 
+	//gamestate
 	GameState m_gamestate = GameState::PLAYERTURN;
 
 	void checkGrids();
 
+	//Enemy varialbes
 	int randomPos = 0;
-	int randomEnemy = 0;
 	int currentEnemies = 3;
 	Enemy* enemy[MAX_ENEMIES];
 
 	void createEnemies();
-	void createRoots();
 	void enemyMove();
 	void enemyAttack();
 	void enemyHeal();
@@ -140,12 +143,20 @@ private:
 
 	void killEnemy();
 
+	//hover for icons
 	void mousePos();
 
+	//spawning jumping letter
 	bool startLetter = false;
 	bool hasSpawned = false;
 	sf::Vector2f textVelocity;
 	void damageNumberAnimate();
+
+	//spawing enemy jumping letters
+	bool enemyStartLetter = false;
+	bool enemyLetterSpawned = false;
+	sf::Vector2f enemyTextVelocity;
+	void enemyNumbersAnimate();
 
 };
 
