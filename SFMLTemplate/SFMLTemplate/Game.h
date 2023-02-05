@@ -142,6 +142,7 @@ private:
 	int numOfDeadEnemies = 0;
 
 	void killEnemy();
+	void killSaplings();
 
 	//hover for icons
 	void mousePos();
@@ -157,6 +158,10 @@ private:
 	bool enemyLetterSpawned = false;
 	sf::Vector2f enemyTextVelocity;
 	void enemyNumbersAnimate();
+
+	//checking for gameover
+	int numOfDeadSaplings = 0;
+	void checkGameOver();
 
 };
 

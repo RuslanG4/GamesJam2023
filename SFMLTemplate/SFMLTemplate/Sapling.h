@@ -25,6 +25,8 @@ public:
 	virtual int getDamgage() = 0;
 	virtual void heal(Sapling& t_sap) = 0;
 	virtual void getHeal() = 0;
+	virtual void kill()=0;
+	virtual bool getAlive() = 0;
 private:
 
 };

@@ -22,5 +22,9 @@ void Grid::writeHealth(int enemy)
 {
 	m_text.setPosition(m_shape.getPosition().x + 5, m_shape.getPosition().y );
 	int health = enemy;
+	if (health <= 0)
+	{
+		health = 0;
+	}
 	m_text.setString(std::to_string(health));
 }

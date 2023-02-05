@@ -356,6 +356,7 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			enemyNumbersAnimate();
 		}
+		killSaplings();
 	}
 	for (int i = 0; i < currentEnemies; i++)
 	{
@@ -364,6 +365,15 @@ void Game::update(sf::Time t_deltaTime)
 			enemy[i]->setPosition(offScreenPos);
 		}
 	}
+	for (int i = 0; i < currentSaplings; i++)
+	{
+		if (sapling[i]->getAlive())
+		{
+			sapling[i]->setPosition(offScreenPos);
+		}
+	}
+
+	checkGameOver();
 
 }
 /// <summary>
@@ -630,6 +640,10 @@ void Game::enemyAttack()
 	
 	if (!enemy[attackingEnemy]->checkDead())
 	{
+		while (sapling[random]->getAlive())
+		{
+			random = rand() % currentSaplings;
+		}
 		m_enemyText.setPosition(sapling[random]->getPos());
 		sapling[random]->takeDamage(enemy[attackingEnemy]->getDamage());
 		myHud.getEnemyAction(attackingEnemy, random, enemy[attackingEnemy]->getDamage());
@@ -663,6 +677,18 @@ void Game::killEnemy()
 		}
 	}
 }
+
+void Game::killSaplings()
+{
+	for  (int i = 0; i <currentSaplings; i++)
+	{
+		if(sapling[i]->getHealth() <= 0)
+		{
+			sapling[i]->kill();
+		}
+	}
+}
+
 /// <summary>
 /// hover over icons makes them fade, lets player see where they are
 /// </summary>
@@ -728,6 +754,21 @@ void Game::enemyNumbersAnimate()
 	{
 		enemyLetterSpawned = false;
 		enemyStartLetter = false;
+	}
+}
+
+//checks game over
+void Game::checkGameOver()
+{
+	for (int i = 0; i < currentSaplings; i++)
+	{
+		if (sapling[i]->getAlive()) {
+			numOfDeadSaplings++;
+			if (numOfDeadSaplings == currentSaplings)
+			{
+				std::cout << "YOU LOSE";
+			}
+		}
 	}
 }
 /// <summary>

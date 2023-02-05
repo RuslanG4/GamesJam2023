@@ -22,6 +22,8 @@ public:
 	int getDamgage() { return damage; };
 	void heal(Sapling& t_sap);
 	void getHeal();
+	void kill() {isDead = true;}
+	bool getAlive() { return isDead; };
 
 private:
 	sf::Sprite m_sprite;
@@ -36,6 +38,7 @@ private:
 	int hitChance;
 	int gridNum;
 	int damageTimer = 0;
+	bool isDead = false;
 
 };
 
