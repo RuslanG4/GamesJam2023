@@ -10,6 +10,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1920U, 1080U, 32U }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
+	music();
 	setUpSprites();
 	setupFont();
 	createRoots();
@@ -276,13 +277,12 @@ void Game::processMouseRelease(sf::Event t_event)
 			std::cout << "Attack" << std::endl;
 			if (!sapling[selectedSapling]->getAttack())
 			{
-				m_text.setPosition(m_selectionEnemy.getPosition().x + 100, m_selectionEnemy.getPosition().y + 100);
+				if (enemySelected != 8)
+				{
+					m_text.setPosition(m_selectionEnemy.getPosition().x + 100, m_selectionEnemy.getPosition().y + 100);
+					attack();
+				}
 			}
-			if (enemySelected!=8)
-			{
-				attack();
-			}
-			
 			startLetter = true;
 			hasMoved = true;
 			
@@ -946,6 +946,15 @@ void Game::resetVars()
 		myGrid[i].reset();
 		enemyGrid[i].reset();
 	}
+}
+void Game::music()
+{
+	if (!m_music.openFromFile("ASSETS\\AUDIO\\BT.wav"))
+	{
+		std::cout << "error loading music";
+	}
+	m_music.setVolume(30);
+	m_music.setLoop(true);
 }
 /// <summary>
 /// checks grids when moving around player sprites

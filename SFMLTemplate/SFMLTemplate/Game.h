@@ -12,6 +12,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<iostream>
 #include"Sapling.h"
 #include"Base.h"
@@ -181,6 +182,9 @@ private:
 	void resetVars();
 
 	bool canAttack = true;
+
+	sf::Music m_music;
+	void music();
 
 };
 
