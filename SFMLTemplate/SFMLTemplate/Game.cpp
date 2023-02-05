@@ -1009,7 +1009,8 @@ void Game::music()
 	{
 		std::cout << "error loading music";
 	}
-	m_music.setVolume(30);
+	m_music.setVolume(100);
+	m_music.play();
 	m_music.setLoop(true);
 }
 /// <summary>
