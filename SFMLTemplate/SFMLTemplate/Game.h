@@ -42,6 +42,7 @@ private:
 	void processKeys(sf::Event t_event);
 	void processMouse(sf::Event t_event);
 	void processMouseRelease(sf::Event t_event);
+	void processMouseRight(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	void setupFontAndText();

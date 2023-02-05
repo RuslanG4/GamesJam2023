@@ -79,6 +79,11 @@ void Game::processEvents()
 		{
 			processMouseRelease(newEvent);
 		}
+		if (sf::Mouse::Button::Right == newEvent.type)
+		{
+			processMouseRight(newEvent);
+			
+		}
 	}
 }
 /// <summary>
@@ -116,6 +121,10 @@ void Game::processMouse(sf::Event t_event)
 
 			if (myGrid[0].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[0].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[0].enemyNumberCheck();
 				myGrid[0].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[0]);
@@ -129,8 +138,13 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly archer 2 box" << std::endl;
+
 			if (myGrid[2].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[2].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[2].enemyNumberCheck();
 				myGrid[2].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[2]);
@@ -142,8 +156,13 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 400 && t_event.mouseButton.y < F_ROW_BOTTOM + 400)
 		{
 			std::cout << "Pressed friendly archer 3 box" << std::endl;
+		
 			if (myGrid[4].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[4].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[4].enemyNumberCheck();
 				myGrid[4].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[4]);
@@ -159,8 +178,13 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP && t_event.mouseButton.y < F_ROW_BOTTOM)
 		{
 			std::cout << "Pressed friendly fighters 1 box" << std::endl;
+
 			if (myGrid[1].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[1].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[1].enemyNumberCheck();
 				myGrid[1].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[1]);
@@ -173,8 +197,13 @@ void Game::processMouse(sf::Event t_event)
 		if (t_event.mouseButton.y > F_ROW_TOP + 200 && t_event.mouseButton.y < F_ROW_BOTTOM + 200)
 		{
 			std::cout << "Pressed friendly fighters 2 box" << std::endl;
+	
 			if (myGrid[3].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[3].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[3].enemyNumberCheck();
 				myGrid[3].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[3]);
@@ -189,6 +218,10 @@ void Game::processMouse(sf::Event t_event)
 			std::cout << "Pressed friendly fighters 3 box" << std::endl;
 			if (myGrid[5].checkOccupied())
 			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+				{
+					healSelection = myGrid[5].enemyNumberCheck();
+				}
 				selectedSapling = myGrid[5].enemyNumberCheck();
 				myGrid[5].setEnemyNumber(selectedSapling);
 				m_selectionSapling.setPosition(positions[5]);
@@ -305,6 +338,11 @@ void Game::processMouseRelease(sf::Event t_event)
 			heal();
 		}
 	}
+}
+
+void Game::processMouseRight(sf::Event t_event)
+{
+
 }
 
 /// <summary>
@@ -570,6 +608,7 @@ void Game::heal()
 	if (!sapling[selectedSapling]->getAttack())
 	{
 		sapling[selectedSapling]->heal(*sapling[healSelection]);
+		//sapling[healSelection]->getHealth();
 		//myHud.getHealAction(selectedSapling, selectedSapling, sapling[selectedSapling]->getHeal());
 	}
 }
